@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
@@ -14,15 +13,15 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     setError('');
     try {
-      const user = await login(email, password);
-      if (user) {
-        if (user.role === 'admin') {
-          navigate('/admin');
-        } else {
-          navigate('/');
-        }
-      } else {
+      const { error: loginError } = await login(email, password);
+      if (loginError) {
         setError('Email ou senha inválidos.');
+      } else {
+        // The AuthContext listener will handle fetching user data and navigation
+        // will be based on the user role after state update.
+        // For now, we can optimistically navigate.
+        // A better approach would be to wait for user state to be non-null.
+        navigate('/');
       }
     } catch (err) {
       setError('Ocorreu um erro ao tentar fazer login.');

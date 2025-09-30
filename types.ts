@@ -22,10 +22,9 @@ export interface Address {
 }
 
 export interface User {
-  id: number;
+  id: string; // Changed from number to string for Supabase UUID
   name: string;
   email: string;
-  password?: string; // Password is optional for client-side representation
   role: 'client' | 'admin';
   address?: Address;
 }

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import ProductList from '../components/admin/ProductList';
-import ClientList from '../components/admin/ClientList';
 
-type AdminTab = 'products' | 'clients';
+type AdminTab = 'products';
 
 const AdminPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AdminTab>('products');
@@ -26,18 +25,11 @@ const AdminPage: React.FC = () => {
           >
             Gerenciar Produtos
           </button>
-          <button 
-            className={tabButtonClasses('clients')}
-            onClick={() => setActiveTab('clients')}
-          >
-            Lista de Clientes
-          </button>
         </div>
       </div>
 
       <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
         {activeTab === 'products' && <ProductList />}
-        {activeTab === 'clients' && <ClientList />}
       </div>
     </div>
   );
