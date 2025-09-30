@@ -1,0 +1,5 @@
+{
+  "name": "Bodega dos Parças",
+  "description": "A fully functional frontend for a digital delivery menu for Bodega dos Parças. It features product browsing, a shopping cart, and a checkout process, all designed with a mobile-first approach using React and Tailwind CSS.",
+  "requestFramePermissions": []
+}
