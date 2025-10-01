@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import ProductList from '../components/admin/ProductList';
+import Dashboard from '../components/admin/Dashboard';
 
-type AdminTab = 'products';
+type AdminTab = 'dashboard' | 'products';
 
 const AdminPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<AdminTab>('products');
+  const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
 
   const tabButtonClasses = (tabName: AdminTab) => 
     `px-4 py-2 text-sm font-semibold rounded-md transition-colors flex-shrink-0 ${
@@ -20,6 +21,12 @@ const AdminPage: React.FC = () => {
       <div className="mb-6 border-b border-gray-200">
         <div className="flex space-x-2 sm:space-x-4 overflow-x-auto whitespace-nowrap pb-2">
           <button 
+            className={tabButtonClasses('dashboard')}
+            onClick={() => setActiveTab('dashboard')}
+          >
+            Dashboard
+          </button>
+          <button 
             className={tabButtonClasses('products')}
             onClick={() => setActiveTab('products')}
           >
@@ -29,6 +36,7 @@ const AdminPage: React.FC = () => {
       </div>
 
       <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+        {activeTab === 'dashboard' && <Dashboard />}
         {activeTab === 'products' && <ProductList />}
       </div>
     </div>

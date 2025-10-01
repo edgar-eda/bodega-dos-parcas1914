@@ -39,14 +39,15 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
   }, [fetchProducts]);
 
   const addProduct = async (productData: Omit<Product, 'id'>) => {
-    const { name, description, price, promoPrice, category, imageUrl } = productData;
+    const { name, description, price, promoPrice, category, imageUrl, stock } = productData;
     const { error } = await supabase.from('products').insert([{ 
         name, 
         description, 
         price, 
         promoPrice, // Supabase lida com undefined como NULL
         category, 
-        imageUrl 
+        imageUrl,
+        stock
     }]);
     if (error) {
         console.error("Error adding product:", error);
@@ -56,10 +57,10 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
   };
 
   const updateProduct = async (productData: Product) => {
-    const { id, name, description, price, promoPrice, category, imageUrl } = productData;
+    const { id, name, description, price, promoPrice, category, imageUrl, stock } = productData;
     const { error } = await supabase
       .from('products')
-      .update({ name, description, price, promoPrice, category, imageUrl })
+      .update({ name, description, price, promoPrice, category, imageUrl, stock })
       .eq('id', id);
     
     if (error) {

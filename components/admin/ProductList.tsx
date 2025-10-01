@@ -55,6 +55,7 @@ const ProductList: React.FC = () => {
                             <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Imagem</th>
                             <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Nome</th>
                             <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Preço</th>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Estoque</th>
                             <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Categoria</th>
                             <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Ações</th>
                         </tr>
@@ -64,9 +65,14 @@ const ProductList: React.FC = () => {
                             <tr key={product.id} className="border-b border-gray-200 hover:bg-gray-50">
                                 <td className="py-3 px-4">
                                     <img src={product.imageUrl} alt={product.name} className="w-12 h-12 object-cover rounded-md" />
-                                </td>
+                                t</td>
                                 <td className="py-3 px-4 font-medium">{product.name}</td>
                                 <td className="py-3 px-4">{formatCurrency(product.promoPrice || product.price)}</td>
+                                <td className="py-3 px-4">
+                                    <span className={`${product.stock <= 10 && product.stock > 0 ? 'text-yellow-600 font-bold' : ''} ${product.stock === 0 ? 'text-red-600 font-bold' : ''}`}>
+                                        {product.stock}
+                                    </span>
+                                </td>
                                 <td className="py-3 px-4">{product.category}</td>
                                 <td className="py-3 px-4">
                                     <div className="flex items-center gap-2">

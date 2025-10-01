@@ -17,6 +17,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
     promoPrice: '',
     category: CATEGORIES[0],
     imageUrl: '',
+    stock: '0',
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
@@ -29,12 +30,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
         promoPrice: productToEdit.promoPrice?.toString() || '',
         category: productToEdit.category,
         imageUrl: productToEdit.imageUrl,
+        stock: productToEdit.stock.toString(),
       });
       setImagePreview(productToEdit.imageUrl);
     } else {
       // Reset form for new product
       setProductData({
-        name: '', description: '', price: '', promoPrice: '', category: CATEGORIES[0], imageUrl: '',
+        name: '', description: '', price: '', promoPrice: '', category: CATEGORIES[0], imageUrl: '', stock: '0',
       });
       setImagePreview(null);
     }
@@ -64,6 +66,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
         ...productData,
         price: parseFloat(productData.price),
         promoPrice: productData.promoPrice ? parseFloat(productData.promoPrice) : undefined,
+        stock: parseInt(productData.stock, 10) || 0,
     };
     
     if(productToEdit) {
@@ -83,9 +86,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
         </select>
       </div>
       <textarea name="description" placeholder="Descrição" value={productData.description} onChange={handleChange} required className="p-2 border rounded-md w-full h-24" />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <input type="number" name="price" placeholder="Preço (Ex: 9.99)" value={productData.price} onChange={handleChange} required className="p-2 border rounded-md w-full" step="0.01" />
         <input type="number" name="promoPrice" placeholder="Preço Promocional (Opcional)" value={productData.promoPrice} onChange={handleChange} className="p-2 border rounded-md w-full" step="0.01" />
+        <input type="number" name="stock" placeholder="Estoque" value={productData.stock} onChange={handleChange} required className="p-2 border rounded-md w-full" min="0" />
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Imagem do Produto</label>

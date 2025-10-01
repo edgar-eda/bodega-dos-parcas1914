@@ -6,6 +6,7 @@ export interface Product {
   promoPrice?: number;
   category: string;
   imageUrl: string;
+  stock: number;
 }
 
 export interface CartItem extends Product {
