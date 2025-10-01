@@ -18,7 +18,7 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
   return (
     <div className="py-4 sticky top-16 bg-gray-50 z-40 border-b border-gray-200">
       <div className="container mx-auto px-4">
-        <div className="flex space-x-3 sm:space-x-4 overflow-x-auto pb-2 -mb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+        <div className="flex flex-wrap gap-3">
           <button
             onClick={() => onSelectCategory("Todos")}
             className={getButtonClasses("Todos")}
