@@ -21,14 +21,14 @@ const Dashboard: React.FC = () => {
       </div>
       <div>
         <p className="text-sm text-gray-500">{title}</p>
-        <p className="text-2xl font-bold text-gray-800">{value}</p>
+        <p className="text-xl sm:text-2xl font-bold text-gray-800">{value}</p>
       </div>
     </div>
   );
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Dashboard de Estoque</h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">Dashboard de Estoque</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard 
           icon={<Package size={24} className="text-blue-800" />}

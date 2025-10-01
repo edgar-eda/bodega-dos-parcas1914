@@ -38,7 +38,7 @@ const ProductList: React.FC = () => {
     return (
         <div>
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4">
-                <h2 className="text-2xl font-bold text-gray-800">Produtos</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Produtos</h2>
                 <button 
                     onClick={handleOpenModalForAdd}
                     className="flex items-center justify-center sm:justify-start gap-2 bg-primary text-white font-bold py-2 px-4 rounded-md hover:bg-primary-dark transition-colors"
@@ -65,7 +65,7 @@ const ProductList: React.FC = () => {
                             <tr key={product.id} className="border-b border-gray-200 hover:bg-gray-50">
                                 <td className="py-3 px-4">
                                     <img src={product.imageUrl} alt={product.name} className="w-12 h-12 object-cover rounded-md" />
-                                t</td>
+                                </td>
                                 <td className="py-3 px-4 font-medium">{product.name}</td>
                                 <td className="py-3 px-4">{formatCurrency(product.promoPrice || product.price)}</td>
                                 <td className="py-3 px-4">

@@ -19,7 +19,7 @@ const CartPage: React.FC = () => {
   if (!user) {
     return (
         <div className="container mx-auto px-4 py-12 text-center">
-            <h1 className="text-3xl font-bold mb-4">Acesso Negado</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold mb-4">Acesso Negado</h1>
             <p className="text-gray-600 mb-8">Você precisa fazer login para ver seu carrinho.</p>
             <Link to="/login" className="bg-primary text-white font-bold py-3 px-6 rounded-full hover:bg-primary-dark transition-colors">
             Ir para Login
@@ -31,7 +31,7 @@ const CartPage: React.FC = () => {
   if (cartItems.length === 0) {
     return (
       <div className="container mx-auto px-4 py-12 text-center">
-        <h1 className="text-3xl font-bold mb-4">Seu carrinho está vazio</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-4">Seu carrinho está vazio</h1>
         <p className="text-gray-600 mb-8">Que tal adicionar alguns produtos?</p>
         <Link to="/" className="bg-primary text-white font-bold py-3 px-6 rounded-full hover:bg-primary-dark transition-colors">
           Continuar comprando
@@ -42,7 +42,7 @@ const CartPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-gray-800">Meu Carrinho</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold mb-8 text-gray-800">Meu Carrinho</h1>
       <div className="flex flex-col lg:flex-row gap-8">
         
         {/* Cart Items */}

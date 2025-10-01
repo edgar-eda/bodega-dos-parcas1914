@@ -16,7 +16,7 @@ const AdminPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Painel do Administrador</h1>
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">Painel do Administrador</h1>
       
       <div className="mb-6 border-b border-gray-200">
         <div className="flex space-x-2 sm:space-x-4 overflow-x-auto whitespace-nowrap pb-2">

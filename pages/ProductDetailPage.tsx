@@ -54,22 +54,22 @@ const ProductDetailPage: React.FC = () => {
           </div>
           <div className="flex flex-col justify-center">
             <span className="text-sm font-semibold text-primary mb-2">{product.category}</span>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4">{product.name}</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">{product.name}</h1>
             <p className="text-gray-600 mb-6">{product.description}</p>
             
             <div className="mb-6">
               {product.promoPrice ? (
                 <div className="flex items-baseline gap-3">
-                  <p className="text-3xl sm:text-4xl font-bold text-primary">{formatCurrency(product.promoPrice)}</p>
-                  <p className="text-xl sm:text-2xl text-gray-400 line-through">{formatCurrency(product.price)}</p>
+                  <p className="text-3xl font-bold text-primary">{formatCurrency(product.promoPrice)}</p>
+                  <p className="text-xl text-gray-400 line-through">{formatCurrency(product.price)}</p>
                 </div>
               ) : (
-                <p className="text-3xl sm:text-4xl font-bold text-gray-800">{formatCurrency(product.price)}</p>
+                <p className="text-3xl font-bold text-gray-800">{formatCurrency(product.price)}</p>
               )}
             </div>
 
-            <div className="flex items-center gap-4 mb-8">
-              <label className="font-semibold">Quantidade:</label>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
+              <label className="font-semibold whitespace-nowrap">Quantidade:</label>
               <div className="flex items-center border border-gray-300 rounded-full">
                 <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="p-2 sm:p-3 text-gray-600 hover:text-primary"><MinusIcon className="w-5 h-5"/></button>
                 <span className="px-4 font-bold text-lg">{quantity}</span>
@@ -79,7 +79,7 @@ const ProductDetailPage: React.FC = () => {
 
             <button
                 onClick={handleAddToCart}
-                className={`w-full flex items-center justify-center py-4 px-6 rounded-full text-white font-bold text-lg transition-all duration-300 ${isAdded ? 'bg-green-500' : 'bg-primary hover:bg-primary-dark'}`}
+                className={`w-full flex items-center justify-center py-3 px-6 rounded-full text-white font-bold text-lg transition-all duration-300 ${isAdded ? 'bg-green-500' : 'bg-primary hover:bg-primary-dark'}`}
             >
               {isAdded ? (
                 <>
