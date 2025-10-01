@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="border-t border-emerald-700 mt-8 pt-4 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Bodega dos Parças. Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Bodega dos Parças. Desenvolvido por Edgar Tavares.</p>
         </div>
       </div>
     </footer>

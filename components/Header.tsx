@@ -21,7 +21,8 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-2 sm:px-4 py-3 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
           <span className="text-xl sm:text-2xl font-extrabold text-emerald-900 tracking-tight">
-            Bodega dos Parças
+            <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
+                     Bodega dos Parças
           </span>
         </Link>
         <div className="flex-1 max-w-xs sm:max-w-lg mx-2 sm:mx-4">
