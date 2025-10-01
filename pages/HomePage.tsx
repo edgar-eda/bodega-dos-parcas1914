@@ -7,6 +7,7 @@ import { Product } from '../types';
 
 const HomePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
+  const [showOnlyOffers, setShowOnlyOffers] = useState(false);
   const { products, searchTerm, setSearchTerm } = useProducts();
   const productsRef = useRef<HTMLDivElement>(null);
 
@@ -17,26 +18,44 @@ const HomePage: React.FC = () => {
     };
   }, [setSearchTerm]);
 
-  // Rola a tela para a lista de produtos quando uma busca é iniciada
+  // Desativa o filtro de ofertas se uma busca for iniciada
   useEffect(() => {
-    if (searchTerm && productsRef.current) {
-      productsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (searchTerm) {
+      setShowOnlyOffers(false);
     }
   }, [searchTerm]);
 
   const handleSeeOffersClick = () => {
+    const productsOnOffer = products.filter(p => p.promoPrice && p.promoPrice > 0);
+    
+    if (productsOnOffer.length === 0) {
+      alert("No momento, não temos produtos em promoção.");
+      return;
+    }
+
+    setShowOnlyOffers(true);
+    setSelectedCategory("Todos"); // Reseta a categoria para ver todas as ofertas
     productsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleSelectCategory = (category: string) => {
+    setShowOnlyOffers(false); // Desativa o filtro de ofertas ao escolher uma categoria
+    setSelectedCategory(category);
   };
 
   const filteredProducts = useMemo<Product[]>(() => {
     let tempProducts = products;
 
-    // 1. Filtra por categoria
-    if (selectedCategory !== "Todos") {
+    // 1. Filtra por ofertas primeiro, se ativado
+    if (showOnlyOffers) {
+      tempProducts = tempProducts.filter(p => p.promoPrice && p.promoPrice > 0);
+    } 
+    // 2. Depois, filtra por categoria (se o filtro de ofertas não estiver ativo)
+    else if (selectedCategory !== "Todos") {
       tempProducts = tempProducts.filter(product => product.category === selectedCategory);
     }
 
-    // 2. Filtra pelo termo de busca (nome e descrição)
+    // 3. Por último, filtra pelo termo de busca
     if (searchTerm.trim() !== '') {
       const lowercasedSearchTerm = searchTerm.toLowerCase();
       tempProducts = tempProducts.filter(product =>
@@ -46,20 +65,26 @@ const HomePage: React.FC = () => {
     }
 
     return tempProducts;
-  }, [selectedCategory, products, searchTerm]);
+  }, [selectedCategory, products, searchTerm, showOnlyOffers]);
+
+  const pageTitle = () => {
+    if (searchTerm) {
+      return <>Buscando por "<span className="text-primary">{searchTerm}</span>"</>;
+    }
+    if (showOnlyOffers) {
+      return "Ofertas Especiais";
+    }
+    return selectedCategory;
+  };
 
   return (
     <div className="container mx-auto px-4">
       <Banner onSeeOffersClick={handleSeeOffersClick} />
-      <CategoryNav selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
+      <CategoryNav selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       <div ref={productsRef} className="py-8">
-        {searchTerm ? (
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">
-            Buscando por "<span className="text-primary">{searchTerm}</span>"
-          </h2>
-        ) : (
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">{selectedCategory}</h2>
-        )}
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">
+          {pageTitle()}
+        </h2>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {filteredProducts.map(product => (
             <ProductCard key={product.id} product={product} />
