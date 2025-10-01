@@ -34,7 +34,7 @@ const HomePage: React.FC = () => {
       setShowNoOffersMessage(true);
       setTimeout(() => {
         setShowNoOffersMessage(false);
-      }, 3000); // Esconde a mensagem após 3 segundos
+      }, 30000); // Esconde a mensagem após 30 segundos
       return;
     }
 
