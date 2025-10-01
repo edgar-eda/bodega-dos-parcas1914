@@ -16,13 +16,9 @@ const LoginPage: React.FC = () => {
       const { error: loginError } = await login(email, password);
       if (loginError) {
         setError('Email ou senha inválidos.');
-      } else {
-        // The AuthContext listener will handle fetching user data and navigation
-        // will be based on the user role after state update.
-        // For now, we can optimistically navigate.
-        // A better approach would be to wait for user state to be non-null.
-        navigate('/');
       }
+      // A navegação agora é tratada pelo listener no App.tsx
+      // que redireciona com base no papel do usuário.
     } catch (err) {
       setError('Ocorreu um erro ao tentar fazer login.');
     }
