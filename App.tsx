@@ -17,10 +17,10 @@ import PrivateRoute from './components/PrivateRoute';
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <ProductProvider>
-        <CartProvider>
-          <HashRouter>
+    <HashRouter>
+      <AuthProvider>
+        <ProductProvider>
+          <CartProvider>
             <div className="bg-gray-50 min-h-screen flex flex-col font-sans">
               <Header />
               <main className="flex-grow pt-20">
@@ -44,10 +44,10 @@ const App: React.FC = () => {
               </main>
               <Footer />
             </div>
-          </HashRouter>
-        </CartProvider>
-      </ProductProvider>
-    </AuthProvider>
+          </CartProvider>
+        </ProductProvider>
+      </AuthProvider>
+    </HashRouter>
   );
 };
 
