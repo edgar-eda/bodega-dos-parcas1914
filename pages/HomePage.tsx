@@ -4,10 +4,12 @@ import CategoryNav from '../components/CategoryNav';
 import ProductCard from '../components/ProductCard';
 import { useProducts } from '../context/ProductContext';
 import { Product } from '../types';
+import { Info } from 'lucide-react';
 
 const HomePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [showOnlyOffers, setShowOnlyOffers] = useState(false);
+  const [showNoOffersMessage, setShowNoOffersMessage] = useState(false);
   const { products, searchTerm, setSearchTerm } = useProducts();
   const productsRef = useRef<HTMLDivElement>(null);
 
@@ -29,7 +31,10 @@ const HomePage: React.FC = () => {
     const productsOnOffer = products.filter(p => p.promoPrice && p.promoPrice > 0);
     
     if (productsOnOffer.length === 0) {
-      alert("No momento, não temos produtos em promoção.");
+      setShowNoOffersMessage(true);
+      setTimeout(() => {
+        setShowNoOffersMessage(false);
+      }, 3000); // Esconde a mensagem após 3 segundos
       return;
     }
 
@@ -81,6 +86,17 @@ const HomePage: React.FC = () => {
     <div className="container mx-auto px-4">
       <Banner onSeeOffersClick={handleSeeOffersClick} />
       <CategoryNav selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
+      
+      {showNoOffersMessage && (
+        <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 my-4 rounded-md flex items-center gap-3 shadow-sm" role="alert">
+          <Info className="w-6 h-6 flex-shrink-0" />
+          <div>
+            <p className="font-bold">Nenhuma oferta encontrada!</p>
+            <p className="text-sm">Fique de olho, em breve teremos novas promoções para você.</p>
+          </div>
+        </div>
+      )}
+
       <div ref={productsRef} className="py-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
           {pageTitle()}
