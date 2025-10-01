@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import Banner from '../components/Banner';
 import CategoryNav from '../components/CategoryNav';
 import ProductCard from '../components/ProductCard';
@@ -9,6 +9,11 @@ import { CATEGORIES } from '../constants';
 const HomePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const { products } = useProducts();
+  const productsRef = useRef<HTMLDivElement>(null);
+
+  const handleSeeOffersClick = () => {
+    productsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const filteredProducts = useMemo<Product[]>(() => {
     if (selectedCategory === "Todos") {
@@ -19,9 +24,9 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <Banner />
+      <Banner onSeeOffersClick={handleSeeOffersClick} />
       <CategoryNav selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
-      <div className="py-8">
+      <div ref={productsRef} className="py-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">{selectedCategory}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {filteredProducts.map(product => (
