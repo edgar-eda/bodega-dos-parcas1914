@@ -1,46 +1,81 @@
-import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, useContext, ReactNode, useCallback } from 'react';
 import { Product } from '../types';
-import { PRODUCTS } from '../constants';
+import { supabase } from '@/src/integrations/supabase/client';
 
 interface ProductContextType {
   products: Product[];
-  addProduct: (productData: Omit<Product, 'id'>) => void;
-  updateProduct: (productData: Product) => void;
-  deleteProduct: (productId: number) => void;
+  addProduct: (productData: Omit<Product, 'id'>) => Promise<void>;
+  updateProduct: (productData: Product) => Promise<void>;
+  deleteProduct: (productId: number) => Promise<void>;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [products, setProducts] = useState<Product[]>(() => {
-    try {
-      const localData = localStorage.getItem('products');
-      return localData ? JSON.parse(localData) : [...PRODUCTS];
-    } catch (error) {
-      console.error("Could not parse products from localStorage", error);
-      return [...PRODUCTS];
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const fetchProducts = useCallback(async () => {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error("Error fetching products:", error);
+      setProducts([]);
+    } else {
+      // Mapeia os nomes das colunas com aspas para camelCase
+      const formattedData = data.map(product => ({
+        ...product,
+        promoPrice: product.promoPrice,
+        imageUrl: product.imageUrl
+      }));
+      setProducts(formattedData as Product[]);
     }
-  });
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem('products', JSON.stringify(products));
-  }, [products]);
+    fetchProducts();
+  }, [fetchProducts]);
 
-  const addProduct = (productData: Omit<Product, 'id'>) => {
-    setProducts(prevProducts => [
-      ...prevProducts,
-      { ...productData, id: Date.now() }
-    ]);
+  const addProduct = async (productData: Omit<Product, 'id'>) => {
+    const { name, description, price, promoPrice, category, imageUrl } = productData;
+    const { error } = await supabase.from('products').insert([{ 
+        name, 
+        description, 
+        price, 
+        promoPrice, // Supabase lida com undefined como NULL
+        category, 
+        imageUrl 
+    }]);
+    if (error) {
+        console.error("Error adding product:", error);
+    } else {
+        await fetchProducts(); // Re-fetch para atualizar a lista
+    }
   };
 
-  const updateProduct = (productData: Product) => {
-    setProducts(prevProducts => 
-      prevProducts.map(p => p.id === productData.id ? productData : p)
-    );
+  const updateProduct = async (productData: Product) => {
+    const { id, name, description, price, promoPrice, category, imageUrl } = productData;
+    const { error } = await supabase
+      .from('products')
+      .update({ name, description, price, promoPrice, category, imageUrl })
+      .eq('id', id);
+    
+    if (error) {
+        console.error("Error updating product:", error);
+    } else {
+        await fetchProducts();
+    }
   };
 
-  const deleteProduct = (productId: number) => {
-    setProducts(prevProducts => prevProducts.filter(p => p.id !== productId));
+  const deleteProduct = async (productId: number) => {
+    const { error } = await supabase.from('products').delete().eq('id', productId);
+    if (error) {
+        console.error("Error deleting product:", error);
+    } else {
+        await fetchProducts();
+    }
   };
 
   return (
