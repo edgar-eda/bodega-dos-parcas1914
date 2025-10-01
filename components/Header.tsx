@@ -4,10 +4,12 @@ import { SearchIcon } from './icons';
 import CartIcon from './CartIcon';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
+import { useProducts } from '../context/ProductContext';
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();
   const { clearCart } = useCart();
+  const { searchTerm, setSearchTerm } = useProducts();
 
   const handleLogout = () => {
     clearCart();
@@ -28,6 +30,8 @@ const Header: React.FC = () => {
               type="text"
               placeholder="Buscar por item..."
               className="w-full bg-gray-100 border-2 border-gray-200 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-primary transition-colors"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           </div>

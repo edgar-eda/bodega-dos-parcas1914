@@ -4,6 +4,8 @@ import { supabase } from '@/src/integrations/supabase/client';
 
 interface ProductContextType {
   products: Product[];
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
   addProduct: (productData: Omit<Product, 'id'>) => Promise<void>;
   updateProduct: (productData: Product) => Promise<void>;
   deleteProduct: (productId: number) => Promise<void>;
@@ -13,6 +15,7 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchProducts = useCallback(async () => {
     const { data, error } = await supabase
@@ -80,7 +83,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
   };
 
   return (
-    <ProductContext.Provider value={{ products, addProduct, updateProduct, deleteProduct }}>
+    <ProductContext.Provider value={{ products, searchTerm, setSearchTerm, addProduct, updateProduct, deleteProduct }}>
       {children}
     </ProductContext.Provider>
   );
