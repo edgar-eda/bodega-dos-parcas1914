@@ -36,10 +36,12 @@ const HomePage: React.FC = () => {
       tempProducts = tempProducts.filter(product => product.category === selectedCategory);
     }
 
-    // 2. Filtra pelo termo de busca
+    // 2. Filtra pelo termo de busca (nome e descrição)
     if (searchTerm.trim() !== '') {
+      const lowercasedSearchTerm = searchTerm.toLowerCase();
       tempProducts = tempProducts.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        product.name.toLowerCase().includes(lowercasedSearchTerm) ||
+        product.description.toLowerCase().includes(lowercasedSearchTerm)
       );
     }
 
