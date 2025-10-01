@@ -33,32 +33,32 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-1 transition-transform duration-300 flex flex-col">
       <Link to={`/product/${product.id}`} className="block">
         <div className="relative">
-          <img src={product.imageUrl} alt={product.name} className="w-full h-48 object-cover" />
+          <img src={product.imageUrl} alt={product.name} className="w-full h-32 sm:h-48 object-cover" />
           {product.promoPrice && (
             <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">PROMO</div>
           )}
         </div>
       </Link>
-      <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-lg font-semibold text-gray-800 mb-1 truncate">{product.name}</h3>
-        <p className="text-gray-500 text-sm mb-4 flex-grow">{product.description}</p>
+      <div className="p-2 sm:p-4 flex flex-col flex-grow">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-1 truncate">{product.name}</h3>
+        <p className="text-gray-500 text-sm mb-4 flex-grow hidden sm:block">{product.description}</p>
         <div className="flex justify-between items-center mt-auto">
           <div>
             {product.promoPrice ? (
               <>
-                <p className="text-lg font-bold text-primary">{formatCurrency(product.promoPrice)}</p>
-                <p className="text-sm text-gray-400 line-through">{formatCurrency(product.price)}</p>
+                <p className="text-base sm:text-lg font-bold text-primary">{formatCurrency(product.promoPrice)}</p>
+                <p className="text-xs sm:text-sm text-gray-400 line-through">{formatCurrency(product.price)}</p>
               </>
             ) : (
-              <p className="text-lg font-bold text-gray-800">{formatCurrency(product.price)}</p>
+              <p className="text-base sm:text-lg font-bold text-gray-800">{formatCurrency(product.price)}</p>
             )}
           </div>
           <button
             onClick={handleAddToCart}
-            className={`flex items-center justify-center w-12 h-12 rounded-full text-white font-bold transition-all duration-300 ${isAdded ? 'bg-green-500' : 'bg-primary hover:bg-primary-dark'}`}
+            className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full text-white font-bold transition-all duration-300 ${isAdded ? 'bg-green-500' : 'bg-primary hover:bg-primary-dark'}`}
             aria-label={isAdded ? "Adicionado" : "Adicionar ao carrinho"}
           >
-            {isAdded ? <CheckIcon className="w-6 h-6" /> : <PlusIcon className="w-6 h-6" />}
+            {isAdded ? <CheckIcon className="w-5 h-5 sm:w-6 sm:h-6" /> : <PlusIcon className="w-5 h-5 sm:w-6 sm:h-6" />}
           </button>
         </div>
       </div>
