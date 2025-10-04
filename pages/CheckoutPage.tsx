@@ -3,6 +3,9 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 
+// Moved phone number to a constant for better maintainability
+const WHATSAPP_PHONE_NUMBER = "5581995016183";
+
 const CheckoutPage: React.FC = () => {
   const { cartItems, getTotalPrice, clearCart } = useCart();
   const { user } = useAuth();
@@ -87,8 +90,7 @@ Agradeço e aguardo a confirmação! 😊
     `.trim().replace(/^\s+/gm, '');
     
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "5581995016183";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`;
 
     window.open(whatsappUrl, '_blank');
     
