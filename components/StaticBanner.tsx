@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../logo.png'; // Caminho corrigido para a raiz
+import { LOGO_URL } from '@/src/config'; // Usando a URL da logo do Supabase
 
 interface StaticBannerProps {
   onSeeOffersClick: () => void;
@@ -8,7 +8,7 @@ interface StaticBannerProps {
 const StaticBanner: React.FC<StaticBannerProps> = ({ onSeeOffersClick }) => {
   return (
     <div className="bg-primary-dark rounded-lg shadow-2xl my-6 p-8 flex flex-col items-center text-center">
-      <img src={logo} alt="Bodega dos Parças Logo" className="h-20 w-auto mb-4" />
+      <img src={LOGO_URL} alt="Bodega dos Parças Logo" className="h-20 w-auto mb-4" />
       <h2 className="text-3xl md:text-4xl font-extrabold text-accent-cream drop-shadow-lg">
         Bebida gelada a preço baixo!
       </h2>
