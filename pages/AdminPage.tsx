@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import ProductList from '../components/admin/ProductList';
 import Dashboard from '../components/admin/Dashboard';
-import CategoryList from '../src/components/admin/CategoryList'; // Importar o novo componente
 
-type AdminTab = 'dashboard' | 'products' | 'categories'; // Adicionar 'categories'
+type AdminTab = 'dashboard' | 'products';
 
 const AdminPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
@@ -33,19 +32,12 @@ const AdminPage: React.FC = () => {
           >
             Gerenciar Produtos
           </button>
-          <button 
-            className={tabButtonClasses('categories')}
-            onClick={() => setActiveTab('categories')}
-          >
-            Gerenciar Categorias
-          </button>
         </div>
       </div>
 
       <div className="bg-primary-dark p-4 sm:p-6 rounded-lg shadow-lg">
         {activeTab === 'dashboard' && <Dashboard />}
         {activeTab === 'products' && <ProductList />}
-        {activeTab === 'categories' && <CategoryList />} {/* Renderizar o CategoryList */}
       </div>
     </div>
   );

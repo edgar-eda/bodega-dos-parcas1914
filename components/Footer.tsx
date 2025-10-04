@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { InstagramIcon, TikTokIcon } from './icons'; // Importando apenas os ícones necessários
+import { FacebookIcon, InstagramIcon, TwitterIcon } from './icons';
 
 const Footer: React.FC = () => {
   return (
@@ -22,8 +22,9 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">Siga-nos</h3>
             <div className="flex justify-center md:justify-start gap-4">
-              <a href="https://www.instagram.com/stories/bodegadosparcas/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-accent-red transition-colors"><InstagramIcon className="w-6 h-6" /></a>
-              <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-accent-red transition-colors"><TikTokIcon className="w-6 h-6" /></a> {/* Link do TikTok placeholder */}
+              <a href="#" className="text-gray-400 hover:text-accent-red transition-colors"><FacebookIcon className="w-6 h-6" /></a>
+              <a href="#" className="text-gray-400 hover:text-accent-red transition-colors"><InstagramIcon className="w-6 h-6" /></a>
+              <a href="#" className="text-gray-400 hover:text-accent-red transition-colors"><TwitterIcon className="w-6 h-6" /></a>
             </div>
           </div>
         </div>
