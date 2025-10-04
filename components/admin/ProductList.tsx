@@ -4,11 +4,14 @@ import { Product } from '../../types';
 import Modal from '../Modal';
 import ProductForm from './ProductForm';
 import { EditIcon, PlusIcon, TrashIcon } from '../icons';
+import { AlertTriangle } from 'lucide-react';
 
 const ProductList: React.FC = () => {
     const { products, deleteProduct } = useProducts();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+    const [productToDelete, setProductToDelete] = useState<Product | null>(null);
 
     const handleOpenModalForAdd = () => {
         setEditingProduct(null);
@@ -25,11 +28,22 @@ const ProductList: React.FC = () => {
         setEditingProduct(null);
     };
     
-    const handleDelete = (productId: number) => {
-        if (window.confirm("Tem certeza que deseja excluir este produto?")) {
-            deleteProduct(productId);
+    const handleOpenConfirmModal = (product: Product) => {
+        setProductToDelete(product);
+        setIsConfirmModalOpen(true);
+    };
+
+    const handleCloseConfirmModal = () => {
+        setProductToDelete(null);
+        setIsConfirmModalOpen(false);
+    };
+
+    const handleConfirmDelete = () => {
+        if (productToDelete) {
+            deleteProduct(productToDelete.id);
+            handleCloseConfirmModal();
         }
-    }
+    };
     
     const formatCurrency = (value: number) => {
         return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -77,7 +91,7 @@ const ProductList: React.FC = () => {
                                 <td className="py-3 px-4">
                                     <div className="flex items-center gap-2">
                                         <button onClick={() => handleOpenModalForEdit(product)} className="text-blue-500 hover:text-blue-700 p-2"><EditIcon className="w-5 h-5" /></button>
-                                        <button onClick={() => handleDelete(product.id)} className="text-red-500 hover:text-red-700 p-2"><TrashIcon className="w-5 h-5" /></button>
+                                        <button onClick={() => handleOpenConfirmModal(product)} className="text-red-500 hover:text-red-700 p-2"><TrashIcon className="w-5 h-5" /></button>
                                     </div>
                                 </td>
                             </tr>
@@ -92,6 +106,40 @@ const ProductList: React.FC = () => {
                 title={editingProduct ? "Editar Produto" : "Adicionar Novo Produto"}
             >
                 <ProductForm productToEdit={editingProduct} onFormSubmit={handleCloseModal} />
+            </Modal>
+
+            <Modal
+                isOpen={isConfirmModalOpen}
+                onClose={handleCloseConfirmModal}
+                title="Confirmar Exclusão"
+            >
+                <div className="text-center">
+                    <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                        <AlertTriangle className="h-6 w-6 text-red-600" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900 mt-4">
+                        Excluir Produto
+                    </h3>
+                    <div className="mt-2 px-7 py-3">
+                        <p className="text-sm text-gray-500">
+                            Tem certeza que deseja excluir o produto <strong>"{productToDelete?.name}"</strong>? Esta ação não pode ser desfeita.
+                        </p>
+                    </div>
+                    <div className="items-center px-4 py-3 gap-4 flex justify-center">
+                        <button
+                            onClick={handleConfirmDelete}
+                            className="px-4 py-2 bg-red-600 text-white text-base font-medium rounded-md w-auto shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        >
+                            Excluir
+                        </button>
+                        <button
+                            onClick={handleCloseConfirmModal}
+                            className="px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md w-auto shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                        >
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
             </Modal>
         </div>
     );
