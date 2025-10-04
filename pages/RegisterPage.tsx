@@ -44,51 +44,53 @@ const RegisterPage: React.FC = () => {
       setError('Ocorreu um erro ao tentar se cadastrar.');
     }
   };
+  
+  const inputClasses = "bg-primary p-3 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-yellow focus:outline-none placeholder-gray-400 text-accent-cream";
 
   return (
     <div className="flex items-center justify-center min-h-full py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
+      <div className="max-w-md w-full space-y-8 bg-primary-dark p-10 rounded-xl shadow-lg">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-accent-cream">
             Crie sua conta
           </h2>
         </div>
         {message ? (
-          <div className="text-center p-4 bg-green-100 text-green-800 rounded-md">
+          <div className="text-center p-4 bg-emerald-900 text-emerald-200 rounded-md">
             <p>{message}</p>
           </div>
         ) : (
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm space-y-4">
-              <h3 className="text-lg font-medium text-gray-800 border-b pb-2">Dados Pessoais</h3>
+              <h3 className="text-lg font-medium text-accent-cream border-b border-green-700 pb-2">Dados Pessoais</h3>
               <input name="name" type="text" required value={name} onChange={e => setName(e.target.value)}
-                className="bg-white appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                className={inputClasses}
                 placeholder="Nome completo" />
               <input name="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)}
-                className="bg-white appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                className={inputClasses}
                 placeholder="Email" />
               <input name="password" type="password" autoComplete="new-password" required value={password} onChange={e => setPassword(e.target.value)}
-                className="bg-white appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                className={inputClasses}
                 placeholder="Senha (mínimo 6 caracteres)" />
             </div>
 
             <div className="space-y-4 pt-4">
-              <h3 className="text-lg font-medium text-gray-800 border-b pb-2">Endereço de Entrega</h3>
-              <input type="text" placeholder="CEP" name="cep" value={address.cep} onChange={handleAddressChange} required className="bg-white p-3 border rounded-md w-full focus:ring-2 focus:ring-primary focus:outline-none" />
-              <input type="text" placeholder="Rua / Avenida" name="rua" value={address.rua} onChange={handleAddressChange} required className="bg-white p-3 border rounded-md w-full focus:ring-2 focus:ring-primary focus:outline-none" />
+              <h3 className="text-lg font-medium text-accent-cream border-b border-green-700 pb-2">Endereço de Entrega</h3>
+              <input type="text" placeholder="CEP" name="cep" value={address.cep} onChange={handleAddressChange} required className={inputClasses} />
+              <input type="text" placeholder="Rua / Avenida" name="rua" value={address.rua} onChange={handleAddressChange} required className={inputClasses} />
               <div className="grid grid-cols-2 gap-4">
-                  <input type="text" placeholder="Número" name="numero" value={address.numero} onChange={handleAddressChange} required className="bg-white p-3 border rounded-md w-full focus:ring-2 focus:ring-primary focus:outline-none" />
-                  <input type="text" placeholder="Bairro" name="bairro" value={address.bairro} onChange={handleAddressChange} required className="bg-white p-3 border rounded-md w-full focus:ring-2 focus:ring-primary focus:outline-none" />
+                  <input type="text" placeholder="Número" name="numero" value={address.numero} onChange={handleAddressChange} required className={inputClasses} />
+                  <input type="text" placeholder="Bairro" name="bairro" value={address.bairro} onChange={handleAddressChange} required className={inputClasses} />
               </div>
-              <input type="text" placeholder="Complemento (Opcional)" name="complemento" value={address.complemento} onChange={handleAddressChange} className="bg-white p-3 border rounded-md w-full focus:ring-2 focus:ring-primary focus:outline-none" />
-              <input type="text" placeholder="Ponto de Referência (Opcional)" name="referencia" value={address.referencia} onChange={handleAddressChange} className="bg-white p-3 border rounded-md w-full focus:ring-2 focus:ring-primary focus:outline-none" />
+              <input type="text" placeholder="Complemento (Opcional)" name="complemento" value={address.complemento} onChange={handleAddressChange} className={inputClasses} />
+              <input type="text" placeholder="Ponto de Referência (Opcional)" name="referencia" value={address.referencia} onChange={handleAddressChange} className={inputClasses} />
             </div>
 
 
-            {error && <p className="text-red-500 text-sm text-center pt-4">{error}</p>}
+            {error && <p className="text-red-400 text-sm text-center pt-4">{error}</p>}
 
             <div>
-              <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+              <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-bold rounded-md text-primary bg-accent-yellow hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-yellow">
                 Cadastrar
               </button>
             </div>
@@ -97,7 +99,7 @@ const RegisterPage: React.FC = () => {
         <div className="text-sm text-center">
             <p>
                 Já tem uma conta?{' '}
-                <Link to="/login" className="font-medium text-primary hover:text-primary-dark">
+                <Link to="/login" className="font-medium text-accent-yellow hover:text-yellow-500">
                 Faça login
                 </Link>
             </p>

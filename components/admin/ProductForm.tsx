@@ -75,28 +75,30 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
     onFormSubmit();
   };
 
+  const inputClasses = "bg-primary p-2 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-yellow focus:outline-none placeholder-gray-400 text-accent-cream";
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="text" name="name" placeholder="Nome do Produto" value={productData.name} onChange={handleChange} required className="p-2 border rounded-md w-full" />
-        <select name="category" value={productData.category} onChange={handleChange} required className="p-2 border rounded-md w-full">
+        <input type="text" name="name" placeholder="Nome do Produto" value={productData.name} onChange={handleChange} required className={inputClasses} />
+        <select name="category" value={productData.category} onChange={handleChange} required className={inputClasses}>
             {CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
         </select>
       </div>
-      <textarea name="description" placeholder="Descrição" value={productData.description} onChange={handleChange} required className="p-2 border rounded-md w-full h-24" />
+      <textarea name="description" placeholder="Descrição" value={productData.description} onChange={handleChange} required className={`${inputClasses} h-24`} />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input type="number" name="price" placeholder="Preço (Ex: 9.99)" value={productData.price} onChange={handleChange} required className="p-2 border rounded-md w-full" step="0.01" />
-        <input type="number" name="promoPrice" placeholder="Preço Promocional (Opcional)" value={productData.promoPrice} onChange={handleChange} className="p-2 border rounded-md w-full" step="0.01" />
-        <input type="number" name="stock" placeholder="Estoque" value={productData.stock} onChange={handleChange} required className="p-2 border rounded-md w-full" min="0" />
+        <input type="number" name="price" placeholder="Preço (Ex: 9.99)" value={productData.price} onChange={handleChange} required className={inputClasses} step="0.01" />
+        <input type="number" name="promoPrice" placeholder="Preço Promocional (Opcional)" value={productData.promoPrice} onChange={handleChange} className={inputClasses} step="0.01" />
+        <input type="number" name="stock" placeholder="Estoque" value={productData.stock} onChange={handleChange} required className={inputClasses} min="0" />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Imagem do Produto</label>
-        <input type="file" accept="image/*" onChange={handleImageChange} className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"/>
+        <label className="block text-sm font-medium text-gray-300 mb-1">Imagem do Produto</label>
+        <input type="file" accept="image/*" onChange={handleImageChange} className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent-yellow/10 file:text-accent-yellow hover:file:bg-accent-yellow/20"/>
         {imagePreview && <img src={imagePreview} alt="Preview" className="mt-4 w-32 h-32 object-cover rounded-md" />}
       </div>
       <div className="flex justify-end gap-4 pt-4">
-        <button type="button" onClick={onFormSubmit} className="bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-md hover:bg-gray-300">Cancelar</button>
-        <button type="submit" className="bg-primary text-white font-bold py-2 px-4 rounded-md hover:bg-primary-dark">Salvar Produto</button>
+        <button type="button" onClick={onFormSubmit} className="bg-gray-600 text-gray-100 font-bold py-2 px-4 rounded-md hover:bg-gray-500">Cancelar</button>
+        <button type="submit" className="bg-accent-yellow text-primary font-bold py-2 px-4 rounded-md hover:bg-yellow-500">Salvar Produto</button>
       </div>
     </form>
   );

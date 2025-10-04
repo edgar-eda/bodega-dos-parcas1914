@@ -33,7 +33,7 @@ const App: React.FC = () => {
   }, [user, navigate, location]);
 
   return (
-    <div className="bg-gray-50 min-h-screen flex flex-col font-sans">
+    <div className="bg-primary text-accent-cream min-h-screen flex flex-col font-sans">
       <Header />
       <main className="flex-grow pt-20">
         <Routes>

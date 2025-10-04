@@ -26,9 +26,9 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center min-h-full py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
+      <div className="max-w-md w-full space-y-8 bg-primary-dark p-10 rounded-xl shadow-lg">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-accent-cream">
             Acesse sua conta
           </h2>
         </div>
@@ -42,7 +42,7 @@ const LoginPage: React.FC = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="bg-white appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                className="bg-primary appearance-none rounded-none relative block w-full px-3 py-2 border border-green-700 placeholder-gray-400 text-accent-cream rounded-t-md focus:outline-none focus:ring-accent-yellow focus:border-accent-yellow focus:z-10 sm:text-sm"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -56,7 +56,7 @@ const LoginPage: React.FC = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="bg-white appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
+                className="bg-primary appearance-none rounded-none relative block w-full px-3 py-2 border border-green-700 placeholder-gray-400 text-accent-cream rounded-b-md focus:outline-none focus:ring-accent-yellow focus:border-accent-yellow focus:z-10 sm:text-sm"
                 placeholder="Senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -64,12 +64,12 @@ const LoginPage: React.FC = () => {
             </div>
           </div>
 
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          {error && <p className="text-red-400 text-sm text-center">{error}</p>}
 
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-bold rounded-md text-primary bg-accent-yellow hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-yellow"
             >
               Entrar
             </button>
@@ -78,7 +78,7 @@ const LoginPage: React.FC = () => {
         <div className="text-sm text-center">
           <p>
             Não tem uma conta?{' '}
-            <Link to="/register" className="font-medium text-primary hover:text-primary-dark">
+            <Link to="/register" className="font-medium text-accent-yellow hover:text-yellow-500">
               Cadastre-se
             </Link>
           </p>

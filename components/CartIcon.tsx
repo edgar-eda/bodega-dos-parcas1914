@@ -15,8 +15,8 @@ const CartIcon: React.FC = () => {
 
   return (
     <Link to="/cart" className="relative p-2">
-      <ShoppingCartIcon className="w-7 h-7 text-gray-600" />
-      <span className="absolute top-0 right-0 flex items-center justify-center w-5 h-5 bg-primary text-white text-xs font-bold rounded-full">
+      <ShoppingCartIcon className="w-7 h-7 text-gray-300" />
+      <span className="absolute top-0 right-0 flex items-center justify-center w-5 h-5 bg-accent-red text-white text-xs font-bold rounded-full">
         {itemCount}
       </span>
     </Link>

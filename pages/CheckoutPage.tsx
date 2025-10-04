@@ -38,8 +38,8 @@ const CheckoutPage: React.FC = () => {
     return (
       <div className="container mx-auto px-4 py-12 text-center">
         <h1 className="text-3xl font-bold mb-4">Acesso Negado</h1>
-        <p className="text-gray-600 mb-8">Você precisa fazer login para finalizar seu pedido.</p>
-        <Link to="/login" className="bg-primary text-white font-bold py-3 px-6 rounded-full hover:bg-primary-dark transition-colors">
+        <p className="text-gray-400 mb-8">Você precisa fazer login para finalizar seu pedido.</p>
+        <Link to="/login" className="bg-accent-yellow text-primary font-bold py-3 px-6 rounded-full hover:bg-yellow-500 transition-colors">
           Ir para Login
         </Link>
       </div>
@@ -119,15 +119,15 @@ Agradeço e aguardo a confirmação! 😊
   if (orderSent) {
     return (
       <div className="container mx-auto px-4 py-12 text-center flex flex-col items-center">
-        <CheckCircle className="w-16 h-16 text-green-500 mb-4" />
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Pedido Pronto para Envio!</h1>
-        <p className="text-gray-600 mb-6 max-w-lg">
+        <CheckCircle className="w-16 h-16 text-green-400 mb-4" />
+        <h1 className="text-3xl font-bold text-accent-cream mb-4">Pedido Pronto para Envio!</h1>
+        <p className="text-gray-400 mb-6 max-w-lg">
           Abrimos o WhatsApp em uma nova aba com sua mensagem de pedido. Por favor, verifique e envie a mensagem para finalizar.
         </p>
         <p className="text-gray-500 text-sm mb-8">
           Seu carrinho será limpo e você será redirecionado para a página inicial em breve.
         </p>
-        <Link to="/" className="bg-primary text-white font-bold py-3 px-6 rounded-full hover:bg-primary-dark transition-colors">
+        <Link to="/" className="bg-accent-yellow text-primary font-bold py-3 px-6 rounded-full hover:bg-yellow-500 transition-colors">
           Voltar para o Início
         </Link>
       </div>
@@ -136,19 +136,19 @@ Agradeço e aguardo a confirmação! 😊
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-gray-800">Finalizar Pedido</h1>
+      <h1 className="text-3xl font-bold mb-8 text-accent-cream">Finalizar Pedido</h1>
       <form onSubmit={handleSendToWhatsapp} className="flex flex-col lg:flex-row gap-8 items-start">
-        <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-lg p-6 space-y-6 order-last lg:order-first">
+        <div className="w-full lg:w-2/3 bg-primary-dark rounded-lg shadow-lg p-6 space-y-6 order-last lg:order-first">
           <div>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">Endereço de Entrega</h2>
-              <button type="button" onClick={() => setIsAddressModalOpen(true)} className="flex items-center gap-2 text-sm text-primary font-semibold hover:underline">
+              <button type="button" onClick={() => setIsAddressModalOpen(true)} className="flex items-center gap-2 text-sm text-accent-yellow font-semibold hover:underline">
                 <EditIcon className="w-4 h-4" />
                 {user.address ? 'Editar' : 'Adicionar'}
               </button>
             </div>
             {user.address && user.address.rua ? (
-              <div className="bg-gray-100 p-4 rounded-md text-gray-700 space-y-1">
+              <div className="bg-primary p-4 rounded-md text-gray-300 space-y-1">
                 <p><strong>Rua:</strong> {user.address.rua}, {user.address.numero}</p>
                 <p><strong>Bairro:</strong> {user.address.bairro}</p>
                 <p><strong>CEP:</strong> {user.address.cep}</p>
@@ -156,7 +156,7 @@ Agradeço e aguardo a confirmação! 😊
                 {user.address.referencia && <p><strong>Referência:</strong> {user.address.referencia}</p>}
               </div>
             ) : (
-              <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
+              <div className="bg-yellow-900/50 border-l-4 border-yellow-500 text-yellow-300 p-4" role="alert">
                 <p className="font-bold">Nenhum endereço cadastrado.</p>
                 <p>Por favor, adicione um endereço para continuar.</p>
               </div>
@@ -165,16 +165,16 @@ Agradeço e aguardo a confirmação! 😊
           <div>
             <h2 className="text-xl font-bold mb-4">Forma de Pagamento</h2>
             <div className="space-y-2">
-              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'card' ? 'border-primary bg-green-50 ring-2 ring-primary' : ''}`}>
-                <input type="radio" name="payment" value="card" checked={paymentMethod === 'card'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3" />
+              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'card' ? 'border-accent-yellow bg-green-900/50 ring-2 ring-accent-yellow' : 'border-green-700'}`}>
+                <input type="radio" name="payment" value="card" checked={paymentMethod === 'card'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3 form-radio bg-primary border-green-600 text-accent-yellow focus:ring-accent-yellow" />
                 Cartão de Crédito/Débito
               </label>
-              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'pix' ? 'border-primary bg-green-50 ring-2 ring-primary' : ''}`}>
-                <input type="radio" name="payment" value="pix" checked={paymentMethod === 'pix'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3" />
+              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'pix' ? 'border-accent-yellow bg-green-900/50 ring-2 ring-accent-yellow' : 'border-green-700'}`}>
+                <input type="radio" name="payment" value="pix" checked={paymentMethod === 'pix'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3 form-radio bg-primary border-green-600 text-accent-yellow focus:ring-accent-yellow" />
                 PIX
               </label>
-              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'cash' ? 'border-primary bg-green-50 ring-2 ring-primary' : ''}`}>
-                <input type="radio" name="payment" value="cash" checked={paymentMethod === 'cash'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3" />
+              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'cash' ? 'border-accent-yellow bg-green-900/50 ring-2 ring-accent-yellow' : 'border-green-700'}`}>
+                <input type="radio" name="payment" value="cash" checked={paymentMethod === 'cash'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3 form-radio bg-primary border-green-600 text-accent-yellow focus:ring-accent-yellow" />
                 Dinheiro
               </label>
             </div>
@@ -187,8 +187,8 @@ Agradeço e aguardo a confirmação! 😊
           )}
         </div>
         <div className="w-full lg:w-1/3">
-          <div className="bg-white rounded-lg shadow-lg p-6 h-fit sticky top-24">
-            <h2 className="text-xl font-bold mb-4 border-b pb-4">Resumo Final</h2>
+          <div className="bg-primary-dark rounded-lg shadow-lg p-6 h-fit sticky top-24">
+            <h2 className="text-xl font-bold mb-4 border-b border-green-700 pb-4">Resumo Final</h2>
             <div className="space-y-2 mb-4 max-h-48 overflow-y-auto pr-2">
               {cartItems.map(item => (
                 <div key={item.id} className="flex justify-between text-sm">
@@ -197,7 +197,7 @@ Agradeço e aguardo a confirmação! 😊
                 </div>
               ))}
             </div>
-            <div className="space-y-3 mb-4 border-t pt-4">
+            <div className="space-y-3 mb-4 border-t border-green-700 pt-4">
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span>{formatCurrency(subtotal)}</span>
@@ -207,11 +207,11 @@ Agradeço e aguardo a confirmação! 😊
                 <span>{formatCurrency(deliveryFee)}</span>
               </div>
             </div>
-            <div className="flex justify-between font-bold text-xl border-t pt-4 mb-6">
+            <div className="flex justify-between font-bold text-xl border-t border-green-700 pt-4 mb-6">
               <span>Total a pagar</span>
-              <span>{formatCurrency(getTotalPrice())}</span>
+              <span className="text-accent-yellow">{formatCurrency(getTotalPrice())}</span>
             </div>
-            <button type="submit" className="w-full bg-primary text-white font-bold py-3 rounded-full hover:bg-primary-dark transition-colors disabled:bg-gray-400" disabled={cartItems.length === 0 || !user.address}>
+            <button type="submit" className="w-full bg-accent-yellow text-primary font-bold py-3 rounded-full hover:bg-yellow-500 transition-colors disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed" disabled={cartItems.length === 0 || !user.address}>
               Enviar Pedido via WhatsApp
             </button>
           </div>

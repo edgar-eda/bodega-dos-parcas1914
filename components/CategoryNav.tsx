@@ -16,12 +16,12 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
     const baseClasses = `
       flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full whitespace-nowrap flex-shrink-0
       transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 
-      focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-50
+      focus:ring-accent-yellow focus:ring-offset-2 focus:ring-offset-primary
     `;
     if (isActive) {
-      return `${baseClasses} bg-primary text-white shadow-lg shadow-primary/40 scale-105`;
+      return `${baseClasses} bg-accent-yellow text-primary shadow-lg shadow-yellow-900/40 scale-105`;
     }
-    return `${baseClasses} bg-white text-gray-700 shadow-sm border border-gray-200 hover:bg-gray-100 hover:shadow-md hover:-translate-y-0.5`;
+    return `${baseClasses} bg-primary-dark text-accent-cream shadow-sm border border-green-700 hover:bg-green-900 hover:shadow-md hover:-translate-y-0.5`;
   };
 
   const checkScrollability = () => {
@@ -68,18 +68,18 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
       onClick={onClick}
       disabled={disabled}
       className={`absolute ${direction === 'left' ? 'left-0' : 'right-0'} top-1/2 -translate-y-1/2 z-10
-                 bg-white/80 backdrop-blur-sm rounded-full p-1 shadow-md border border-gray-200
-                 hover:bg-white transition-all duration-200
+                 bg-primary-dark/80 backdrop-blur-sm rounded-full p-1 shadow-md border border-green-700
+                 hover:bg-primary-dark transition-all duration-200
                  disabled:opacity-0 disabled:pointer-events-none
                  sm:hidden`}
       aria-label={`Scroll ${direction}`}
     >
-      {direction === 'left' ? <ChevronLeft className="w-5 h-5 text-gray-700" /> : <ChevronRight className="w-5 h-5 text-gray-700" />}
+      {direction === 'left' ? <ChevronLeft className="w-5 h-5 text-accent-cream" /> : <ChevronRight className="w-5 h-5 text-accent-cream" />}
     </button>
   );
 
   return (
-    <div className="py-4 sticky top-16 bg-gray-50 z-40 border-b border-gray-200">
+    <div className="py-4 sticky top-16 bg-primary z-40 border-b border-green-700">
       <div className="container mx-auto px-4">
         <div className="relative">
           <div 

@@ -19,7 +19,7 @@ const ProductDetailPage: React.FC = () => {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-bold">Produto não encontrado</h2>
-        <Link to="/" className="text-primary hover:underline mt-4 inline-block">Voltar para o início</Link>
+        <Link to="/" className="text-accent-yellow hover:underline mt-4 inline-block">Voltar para o início</Link>
       </div>
     );
   }
@@ -43,43 +43,43 @@ const ProductDetailPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-600 hover:text-primary mb-6 font-semibold">
+      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-300 hover:text-accent-yellow mb-6 font-semibold">
         <ChevronLeftIcon className="w-5 h-5" />
         Voltar
       </button>
-      <div className="bg-white rounded-lg shadow-lg p-4 md:p-8">
+      <div className="bg-primary-dark rounded-lg shadow-lg p-4 md:p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <img src={product.imageUrl} alt={product.name} className="w-full h-auto rounded-lg object-cover aspect-square" />
           </div>
           <div className="flex flex-col justify-center">
-            <span className="text-sm font-semibold text-primary mb-2">{product.category}</span>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">{product.name}</h1>
-            <p className="text-gray-600 mb-6">{product.description}</p>
+            <span className="text-sm font-semibold text-accent-yellow mb-2">{product.category}</span>
+            <h1 className="text-2xl sm:text-3xl font-bold text-accent-cream mb-4">{product.name}</h1>
+            <p className="text-gray-400 mb-6">{product.description}</p>
             
             <div className="mb-6">
               {product.promoPrice ? (
                 <div className="flex items-baseline gap-3">
-                  <p className="text-3xl font-bold text-primary">{formatCurrency(product.promoPrice)}</p>
-                  <p className="text-xl text-gray-400 line-through">{formatCurrency(product.price)}</p>
+                  <p className="text-3xl font-bold text-accent-yellow">{formatCurrency(product.promoPrice)}</p>
+                  <p className="text-xl text-gray-500 line-through">{formatCurrency(product.price)}</p>
                 </div>
               ) : (
-                <p className="text-3xl font-bold text-gray-800">{formatCurrency(product.price)}</p>
+                <p className="text-3xl font-bold text-accent-cream">{formatCurrency(product.price)}</p>
               )}
             </div>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
               <label className="font-semibold whitespace-nowrap">Quantidade:</label>
-              <div className="flex items-center border border-gray-300 rounded-full">
-                <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="p-2 sm:p-3 text-gray-600 hover:text-primary"><MinusIcon className="w-5 h-5"/></button>
+              <div className="flex items-center border border-green-700 rounded-full">
+                <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="p-2 sm:p-3 text-gray-400 hover:text-accent-yellow"><MinusIcon className="w-5 h-5"/></button>
                 <span className="px-4 font-bold text-lg">{quantity}</span>
-                <button onClick={() => setQuantity(q => q + 1)} className="p-2 sm:p-3 text-gray-600 hover:text-primary"><PlusIcon className="w-5 h-5"/></button>
+                <button onClick={() => setQuantity(q => q + 1)} className="p-2 sm:p-3 text-gray-400 hover:text-accent-yellow"><PlusIcon className="w-5 h-5"/></button>
               </div>
             </div>
 
             <button
                 onClick={handleAddToCart}
-                className={`w-full flex items-center justify-center py-3 px-6 rounded-full text-white font-bold text-lg transition-all duration-300 ${isAdded ? 'bg-green-500' : 'bg-primary hover:bg-primary-dark'}`}
+                className={`w-full flex items-center justify-center py-3 px-6 rounded-full font-bold text-lg transition-all duration-300 ${isAdded ? 'bg-emerald-500 text-white' : 'bg-accent-yellow text-primary hover:bg-yellow-500'}`}
             >
               {isAdded ? (
                 <>

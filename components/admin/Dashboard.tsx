@@ -14,45 +14,49 @@ const Dashboard: React.FC = () => {
     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
-  const StatCard = ({ icon, title, value, colorClass }: { icon: React.ReactNode, title: string, value: string | number, colorClass: string }) => (
-    <div className="bg-white p-6 rounded-lg shadow-md flex items-center gap-4">
+  const StatCard = ({ icon, title, value, colorClass, iconColorClass }: { icon: React.ReactNode, title: string, value: string | number, colorClass: string, iconColorClass: string }) => (
+    <div className="bg-primary p-6 rounded-lg shadow-md flex items-center gap-4">
       <div className={`p-3 rounded-full ${colorClass}`}>
-        {icon}
+        {React.cloneElement(icon as React.ReactElement, { className: iconColorClass })}
       </div>
       <div>
-        <p className="text-sm text-gray-500">{title}</p>
-        <p className="text-xl sm:text-2xl font-bold text-gray-800">{value}</p>
+        <p className="text-sm text-gray-400">{title}</p>
+        <p className="text-xl sm:text-2xl font-bold text-accent-cream">{value}</p>
       </div>
     </div>
   );
 
   return (
     <div>
-      <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">Dashboard de Estoque</h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-accent-cream mb-6">Dashboard de Estoque</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard 
-          icon={<Package size={24} className="text-blue-800" />}
+          icon={<Package size={24} />}
           title="Total de Produtos"
           value={totalProducts}
-          colorClass="bg-blue-100"
+          colorClass="bg-blue-900/50"
+          iconColorClass="text-blue-300"
         />
         <StatCard 
-          icon={<DollarSign size={24} className="text-green-800" />}
+          icon={<DollarSign size={24} />}
           title="Valor Total em Estoque"
           value={formatCurrency(totalStockValue)}
-          colorClass="bg-green-100"
+          colorClass="bg-emerald-900/50"
+          iconColorClass="text-emerald-300"
         />
         <StatCard 
-          icon={<PackageX size={24} className="text-red-800" />}
+          icon={<PackageX size={24} />}
           title="Produtos Fora de Estoque"
           value={outOfStock}
-          colorClass="bg-red-100"
+          colorClass="bg-red-900/50"
+          iconColorClass="text-red-300"
         />
         <StatCard 
-          icon={<PackageCheck size={24} className="text-yellow-800" />}
+          icon={<PackageCheck size={24} />}
           title="Produtos com Estoque Baixo"
           value={lowStock}
-          colorClass="bg-yellow-100"
+          colorClass="bg-yellow-900/50"
+          iconColorClass="text-yellow-300"
         />
       </div>
     </div>

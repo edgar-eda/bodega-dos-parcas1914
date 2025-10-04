@@ -74,7 +74,7 @@ const HomePage: React.FC = () => {
 
   const pageTitle = () => {
     if (searchTerm) {
-      return <>Buscando por "<span className="text-primary">{searchTerm}</span>"</>;
+      return <>Buscando por "<span className="text-accent-yellow">{searchTerm}</span>"</>;
     }
     if (showOnlyOffers) {
       return "Ofertas Especiais";
@@ -88,7 +88,7 @@ const HomePage: React.FC = () => {
       <CategoryNav selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       
       {showNoOffersMessage && (
-        <div className="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 my-4 rounded-md flex items-center gap-3 shadow-sm" role="alert">
+        <div className="bg-sky-900 border-l-4 border-sky-500 text-sky-200 p-4 my-4 rounded-md flex items-center gap-3 shadow-sm" role="alert">
           <Info className="w-6 h-6 flex-shrink-0" />
           <div>
             <p className="font-bold">Nenhuma oferta encontrada!</p>
@@ -98,7 +98,7 @@ const HomePage: React.FC = () => {
       )}
 
       <div ref={productsRef} className="py-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">
+        <h2 className="text-2xl font-bold text-accent-cream mb-6">
           {pageTitle()}
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
@@ -107,7 +107,7 @@ const HomePage: React.FC = () => {
           ))}
         </div>
         {filteredProducts.length === 0 && (
-            <p className="text-center text-gray-500 col-span-full">Nenhum produto encontrado.</p>
+            <p className="text-center text-gray-400 col-span-full">Nenhum produto encontrado.</p>
         )}
       </div>
     </div>

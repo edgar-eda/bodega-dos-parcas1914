@@ -52,10 +52,10 @@ const ProductList: React.FC = () => {
     return (
         <div>
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Produtos</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-accent-cream">Produtos</h2>
                 <button 
                     onClick={handleOpenModalForAdd}
-                    className="flex items-center justify-center sm:justify-start gap-2 bg-primary text-white font-bold py-2 px-4 rounded-md hover:bg-primary-dark transition-colors"
+                    className="flex items-center justify-center sm:justify-start gap-2 bg-accent-yellow text-primary font-bold py-2 px-4 rounded-md hover:bg-yellow-500 transition-colors"
                 >
                     <PlusIcon className="w-5 h-5" />
                     Adicionar Produto
@@ -63,35 +63,35 @@ const ProductList: React.FC = () => {
             </div>
             
             <div className="overflow-x-auto">
-                <table className="min-w-full bg-white">
-                    <thead className="bg-gray-100">
+                <table className="min-w-full bg-primary-dark">
+                    <thead className="bg-primary">
                         <tr>
-                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Imagem</th>
-                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Nome</th>
-                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Preço</th>
-                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Estoque</th>
-                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Categoria</th>
-                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Ações</th>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm text-gray-300">Imagem</th>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm text-gray-300">Nome</th>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm text-gray-300">Preço</th>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm text-gray-300">Estoque</th>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm text-gray-300">Categoria</th>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm text-gray-300">Ações</th>
                         </tr>
                     </thead>
-                    <tbody className="text-gray-700">
+                    <tbody className="text-gray-300">
                         {products.map(product => (
-                            <tr key={product.id} className="border-b border-gray-200 hover:bg-gray-50">
+                            <tr key={product.id} className="border-b border-green-700 hover:bg-primary">
                                 <td className="py-3 px-4">
                                     <img src={product.imageUrl} alt={product.name} className="w-12 h-12 object-cover rounded-md" />
                                 </td>
-                                <td className="py-3 px-4 font-medium">{product.name}</td>
+                                <td className="py-3 px-4 font-medium text-accent-cream">{product.name}</td>
                                 <td className="py-3 px-4">{formatCurrency(product.promoPrice || product.price)}</td>
                                 <td className="py-3 px-4">
-                                    <span className={`${product.stock <= 10 && product.stock > 0 ? 'text-yellow-600 font-bold' : ''} ${product.stock === 0 ? 'text-red-600 font-bold' : ''}`}>
+                                    <span className={`${product.stock <= 10 && product.stock > 0 ? 'text-yellow-400 font-bold' : ''} ${product.stock === 0 ? 'text-red-400 font-bold' : ''}`}>
                                         {product.stock}
                                     </span>
                                 </td>
                                 <td className="py-3 px-4">{product.category}</td>
                                 <td className="py-3 px-4">
                                     <div className="flex items-center gap-2">
-                                        <button onClick={() => handleOpenModalForEdit(product)} className="text-blue-500 hover:text-blue-700 p-2"><EditIcon className="w-5 h-5" /></button>
-                                        <button onClick={() => handleOpenConfirmModal(product)} className="text-red-500 hover:text-red-700 p-2"><TrashIcon className="w-5 h-5" /></button>
+                                        <button onClick={() => handleOpenModalForEdit(product)} className="text-blue-400 hover:text-blue-300 p-2"><EditIcon className="w-5 h-5" /></button>
+                                        <button onClick={() => handleOpenConfirmModal(product)} className="text-red-400 hover:text-red-300 p-2"><TrashIcon className="w-5 h-5" /></button>
                                     </div>
                                 </td>
                             </tr>
@@ -114,14 +114,14 @@ const ProductList: React.FC = () => {
                 title="Confirmar Exclusão"
             >
                 <div className="text-center">
-                    <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                        <AlertTriangle className="h-6 w-6 text-red-600" aria-hidden="true" />
+                    <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-900/50">
+                        <AlertTriangle className="h-6 w-6 text-red-400" aria-hidden="true" />
                     </div>
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 mt-4">
+                    <h3 className="text-lg leading-6 font-medium text-accent-cream mt-4">
                         Excluir Produto
                     </h3>
                     <div className="mt-2 px-7 py-3">
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-400">
                             Tem certeza que deseja excluir o produto <strong>"{productToDelete?.name}"</strong>? Esta ação não pode ser desfeita.
                         </p>
                     </div>
@@ -134,7 +134,7 @@ const ProductList: React.FC = () => {
                         </button>
                         <button
                             onClick={handleCloseConfirmModal}
-                            className="px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md w-auto shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                            className="px-4 py-2 bg-gray-600 text-gray-100 text-base font-medium rounded-md w-auto shadow-sm hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400"
                         >
                             Cancelar
                         </button>
