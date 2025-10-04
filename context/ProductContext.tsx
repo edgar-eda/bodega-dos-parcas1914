@@ -6,12 +6,33 @@ interface ProductContextType {
   products: Product[];
   searchTerm: string;
   setSearchTerm: (term: string) => void;
-  addProduct: (productData: Omit<Product, 'id'>) => Promise<void>;
-  updateProduct: (productData: Product) => Promise<void>;
+  addProduct: (productData: Omit<Product, 'id'>, imageFile: File | null) => Promise<void>;
+  updateProduct: (productData: Product, imageFile: File | null) => Promise<void>;
   deleteProduct: (productId: number) => Promise<void>;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
+
+const uploadImage = async (file: File): Promise<string | null> => {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+        .from('product_images')
+        .upload(filePath, file);
+
+    if (uploadError) {
+        console.error('Error uploading image:', uploadError);
+        return null;
+    }
+
+    const { data } = supabase.storage
+        .from('product_images')
+        .getPublicUrl(filePath);
+
+    return data.publicUrl;
+};
 
 export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,7 +48,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
       console.error("Error fetching products:", error);
       setProducts([]);
     } else {
-      setProducts(data as Product[]);
+      setProducts(data.map(p => ({...p, imageUrl: p.image_url, promoPrice: p.promo_price })) as Product[]);
     }
   }, []);
 
@@ -35,8 +56,20 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
     fetchProducts();
   }, [fetchProducts]);
 
-  const addProduct = async (productData: Omit<Product, 'id'>) => {
-    const { name, description, price, promoPrice, category, imageUrl, stock } = productData;
+  const addProduct = async (productData: Omit<Product, 'id'>, imageFile: File | null) => {
+    let imageUrl = productData.imageUrl || '';
+
+    if (imageFile) {
+        const newImageUrl = await uploadImage(imageFile);
+        if (newImageUrl) {
+            imageUrl = newImageUrl;
+        } else {
+            console.error("Image upload failed, aborting product creation.");
+            return;
+        }
+    }
+
+    const { name, description, price, promoPrice, category, stock } = productData;
     const { error } = await supabase.from('products').insert([{ 
         name, 
         description, 
@@ -49,12 +82,24 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
     if (error) {
         console.error("Error adding product:", error);
     } else {
-        await fetchProducts(); // Re-fetch para atualizar a lista
+        await fetchProducts();
     }
   };
 
-  const updateProduct = async (productData: Product) => {
-    const { id, name, description, price, promoPrice, category, imageUrl, stock } = productData;
+  const updateProduct = async (productData: Product, imageFile: File | null) => {
+    let imageUrl = productData.imageUrl;
+
+    if (imageFile) {
+        const newImageUrl = await uploadImage(imageFile);
+        if (newImageUrl) {
+            imageUrl = newImageUrl;
+        } else {
+            console.error("Image upload failed, aborting product update.");
+            return;
+        }
+    }
+
+    const { id, name, description, price, promoPrice, category, stock } = productData;
     const { error } = await supabase
       .from('products')
       .update({ name, description, price, promo_price: promoPrice, category, image_url: imageUrl, stock })

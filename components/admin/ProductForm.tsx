@@ -19,6 +19,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
     imageUrl: '',
     stock: '0',
   });
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
@@ -33,11 +34,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
         stock: productToEdit.stock.toString(),
       });
       setImagePreview(productToEdit.imageUrl);
+      setImageFile(null);
     } else {
       // Reset form for new product
       setProductData({
         name: '', description: '', price: '', promoPrice: '', category: CATEGORIES[0], imageUrl: '', stock: '0',
       });
+      setImageFile(null);
       setImagePreview(null);
     }
   }, [productToEdit]);
@@ -50,13 +53,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const result = reader.result as string;
-        setProductData(prev => ({ ...prev, imageUrl: result }));
-        setImagePreview(result);
-      };
-      reader.readAsDataURL(file);
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
     }
   };
 
@@ -70,9 +68,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
     };
     
     if(productToEdit) {
-        updateProduct({ ...formattedData, id: productToEdit.id });
+        updateProduct({ ...formattedData, id: productToEdit.id }, imageFile);
     } else {
-        addProduct(formattedData);
+        addProduct(formattedData, imageFile);
     }
     onFormSubmit();
   };
