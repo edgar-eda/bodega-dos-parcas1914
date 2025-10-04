@@ -47,8 +47,11 @@ const RegisterPage: React.FC = () => {
       if (registerError) {
         if (registerError.message.includes('profiles_cpf_key')) {
             setError('Este CPF já está cadastrado.');
-        } else {
-            setError(registerError.message);
+        } else if (registerError.message.includes('unique constraint')) {
+            setError('Este email ou CPF já está em uso.');
+        }
+        else {
+            setError('Ocorreu um erro no cadastro. Verifique os dados.');
         }
       } else {
         setMessage('Cadastro realizado com sucesso! Por favor, verifique seu email para confirmar sua conta.');
@@ -108,8 +111,9 @@ const RegisterPage: React.FC = () => {
                 mask="99999-999"
                 value={address.cep}
                 onChange={handleAddressChange}
+                name="cep"
               >
-                {(inputProps: any) => <input {...inputProps} type="text" placeholder="CEP" name="cep" required className={inputClasses} />}
+                {(inputProps: any) => <input {...inputProps} type="text" placeholder="CEP" required className={inputClasses} />}
               </InputMask>
               <input type="text" placeholder="Rua / Avenida" name="rua" value={address.rua} onChange={handleAddressChange} required className={inputClasses} />
               <div className="grid grid-cols-2 gap-4">
