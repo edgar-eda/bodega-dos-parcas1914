@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { LOGO_URL } from '@/src/config'; // Usando a URL da logo do Supabase
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -19,8 +18,7 @@ const LoginPage: React.FC = () => {
         setError(loginError.message === 'Invalid login credentials' ? 'Email ou senha inválidos.' : 'Ocorreu um erro. Tente novamente.');
       }
       // A navegação é tratada pelo listener no App.tsx
-    } catch (err) {
-      setError('Ocorreu um erro ao tentar fazer login.');
+    } catch (err)      setError('Ocorreu um erro ao tentar fazer login.');
     }
   };
 
@@ -32,7 +30,7 @@ const LoginPage: React.FC = () => {
         
         {/* Lado Esquerdo - Branding */}
         <div className="hidden md:flex flex-col items-center justify-center p-12 bg-primary text-center">
-          <img src={LOGO_URL} alt="Bodega dos Parças Logo" className="h-24 w-auto mb-6" />
+          <img src="/logo.png" alt="Bodega dos Parças Logo" className="h-24 w-auto mb-6" />
           <h1 className="text-3xl font-extrabold text-accent-green tracking-tight mb-2">
             Bem-vindo de volta!
           </h1>
@@ -44,7 +42,7 @@ const LoginPage: React.FC = () => {
         {/* Lado Direito - Formulário */}
         <div className="p-8 md:p-12">
           <div className="flex justify-center md:hidden mb-6">
-             <img src={LOGO_URL} alt="Bodega dos Parças Logo" className="h-20 w-auto" />
+             <img src="/logo.png" alt="Bodega dos Parças Logo" className="h-20 w-auto" />
           </div>
           <h2 className="text-center text-3xl font-bold text-accent-cream mb-2">
             Acesse sua conta
