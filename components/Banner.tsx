@@ -6,18 +6,31 @@ interface BannerProps {
 
 const Banner: React.FC<BannerProps> = ({ onSeeOffersClick }) => {
   return (
-    <div className="bg-primary text-white rounded-lg shadow-lg overflow-hidden my-6">
-      <div className="p-6 md:p-12 flex flex-col md:flex-row items-center justify-between bg-cover bg-center" style={{ backgroundImage: 'url(https://picsum.photos/seed/banner/1200/400)'}}>
-        <div className="bg-black bg-opacity-50 p-6 rounded-lg text-center md:text-left flex flex-col items-center md:items-start w-full">
-          <img src="/logo.png" alt="Bodega dos Parças" className="h-16 md:h-20 w-auto mb-4" />
-          <h2 className="text-2xl md:text-4xl font-extrabold mb-2">Bebida gelada a preço baixo!</h2>
-          <p className="text-base md:text-lg mb-6">Peça agora e receba em minutos na porta da sua casa.</p>
-          <button 
-            onClick={onSeeOffersClick}
-            className="bg-white text-primary font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition-transform transform hover:scale-105 w-full sm:w-auto">
-            Ver Ofertas
-          </button>
-        </div>
+    <div 
+      className="relative text-white rounded-lg shadow-2xl overflow-hidden my-6 bg-cover bg-center" 
+      style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1587888637146-838a5a2d2353?q=80&w=1200&auto=format&fit=crop)' }}
+    >
+      {/* Overlay para legibilidade do texto */}
+      <div className="absolute inset-0 bg-black/60"></div>
+      
+      <div className="relative p-8 md:p-12 flex flex-col items-center justify-center text-center min-h-[350px] md:min-h-[400px]">
+        <img 
+          src="/logo.png" 
+          alt="Bodega dos Parças" 
+          className="h-28 md:h-32 w-auto mb-6 drop-shadow-lg"
+        />
+        <h2 className="text-3xl md:text-5xl font-extrabold mb-3 drop-shadow-md">
+          Bebida gelada a preço baixo!
+        </h2>
+        <p className="text-lg md:text-xl mb-8 max-w-2xl drop-shadow-sm">
+          Peça agora e receba em minutos na porta da sua casa.
+        </p>
+        <button 
+          onClick={onSeeOffersClick}
+          className="bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-all duration-300 transform hover:scale-105 shadow-lg text-lg"
+        >
+          Ver Ofertas
+        </button>
       </div>
     </div>
   );
