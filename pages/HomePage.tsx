@@ -84,7 +84,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <Banner onSeeOffersClick={handleSeeOffersClick} />
+      {!searchTerm.trim() && <Banner onSeeOffersClick={handleSeeOffersClick} />}
       <CategoryNav selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       
       {showNoOffersMessage && (

@@ -14,21 +14,21 @@ const Banner: React.FC<BannerProps> = ({ onSeeOffersClick }) => {
       {/* Grey overlay with blur effect */}
       <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm"></div>
       
-      <div className="relative p-8 md:p-12 flex flex-col items-center justify-center text-center min-h-[350px] md:min-h-[400px]">
+      <div className="relative p-6 md:p-8 flex flex-col items-center justify-center text-center min-h-[250px] md:min-h-[300px]">
         <img 
           src="/logo.png" 
           alt="Bodega dos Parças" 
-          className="h-28 md:h-32 w-auto mb-6 drop-shadow-lg"
+          className="h-20 md:h-24 w-auto mb-4 drop-shadow-lg"
         />
-        <h2 className="text-3xl md:text-5xl font-extrabold mb-3 drop-shadow-md">
+        <h2 className="text-2xl md:text-4xl font-extrabold mb-2 drop-shadow-md">
           Bebida gelada a preço baixo!
         </h2>
-        <p className="text-lg md:text-xl mb-8 max-w-2xl drop-shadow-sm">
+        <p className="text-base md:text-lg mb-6 max-w-2xl drop-shadow-sm">
           Peça agora e receba em minutos na porta da sua casa.
         </p>
         <button 
           onClick={onSeeOffersClick}
-          className="bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-all duration-300 transform hover:scale-105 shadow-lg text-lg"
+          className="bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-primary-dark transition-all duration-300 transform hover:scale-105 shadow-lg text-base"
         >
           Ver Ofertas
         </button>
