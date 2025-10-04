@@ -52,19 +52,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       console.error('Error fetching profile:', error);
       setUser(null);
     } else if (profile) {
-      if (profile.is_banned) {
-        // If user is banned, log them out immediately.
-        await supabase.auth.signOut();
-        setUser(null);
-        return; // Stop further execution
-      }
       setUser({
         id: profile.id,
         name: profile.name,
         email: supabaseUser.email!,
         role: profile.role,
         address: profile.address,
-        is_banned: profile.is_banned,
       });
     }
   };
@@ -73,20 +66,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       return { error };
-    }
-    if (data.user) {
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('is_banned')
-        .eq('id', data.user.id)
-        .single();
-      
-      if (profileError) return { error: profileError };
-
-      if (profile?.is_banned) {
-        await supabase.auth.signOut();
-        return { error: { message: 'Esta conta foi suspensa.' } };
-      }
     }
     return { error: null };
   };

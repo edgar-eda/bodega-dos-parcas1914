@@ -29,5 +29,4 @@ export interface User {
   email: string;
   role: 'client' | 'admin';
   address?: Address;
-  is_banned?: boolean;
 }
