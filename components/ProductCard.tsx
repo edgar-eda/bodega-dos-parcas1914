@@ -31,11 +31,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-1 transition-transform duration-300 flex flex-col">
-      <Link to={`/product/${product.id}`} className="block">
-        <div className="relative">
-          <img src={product.imageUrl} alt={product.name} className="w-full h-32 sm:h-48 object-cover" />
+      <Link to={`/product/${product.id}`} className="block group">
+        <div className="relative overflow-hidden aspect-square">
+          <img 
+            src={product.imageUrl} 
+            alt={product.name} 
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+          />
           {product.promoPrice && (
-            <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">PROMO</div>
+            <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10">PROMO</div>
           )}
         </div>
       </Link>
