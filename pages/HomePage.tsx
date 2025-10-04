@@ -5,6 +5,12 @@ import ProductCard from '../components/ProductCard';
 import { useProducts } from '../context/ProductContext';
 import { Product } from '../types';
 import { Info } from 'lucide-react';
+import { supabase } from '@/src/integrations/supabase/client';
+
+interface ActiveBanner {
+  image_url: string;
+  link_url: string | null;
+}
 
 const HomePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
@@ -12,6 +18,26 @@ const HomePage: React.FC = () => {
   const [showNoOffersMessage, setShowNoOffersMessage] = useState(false);
   const { products, searchTerm, setSearchTerm } = useProducts();
   const productsRef = useRef<HTMLDivElement>(null);
+  const [activeBanner, setActiveBanner] = useState<ActiveBanner | null>(null);
+
+  useEffect(() => {
+    const fetchActiveBanner = async () => {
+      const { data, error } = await supabase
+        .from('banners')
+        .select('image_url, link_url')
+        .eq('is_active', true)
+        .limit(1)
+        .single();
+      
+      if (error && error.code !== 'PGRST116') { // Ignore 'PGRST116' (No rows found)
+        console.error("Error fetching active banner:", error);
+      } else {
+        setActiveBanner(data);
+      }
+    };
+
+    fetchActiveBanner();
+  }, []);
 
   // Limpa o termo de busca quando o usuário sai da página inicial
   useEffect(() => {
@@ -84,7 +110,9 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4">
-      {!searchTerm.trim() && <Banner onSeeOffersClick={handleSeeOffersClick} />}
+      {!searchTerm.trim() && activeBanner && (
+        <Banner imageUrl={activeBanner.image_url} linkUrl={activeBanner.link_url} />
+      )}
       <CategoryNav selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       
       {showNoOffersMessage && (
