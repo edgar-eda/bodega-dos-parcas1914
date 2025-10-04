@@ -27,13 +27,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
       console.error("Error fetching products:", error);
       setProducts([]);
     } else {
-      // Mapeia os nomes das colunas com aspas para camelCase
-      const formattedData = data.map(product => ({
-        ...product,
-        promoPrice: product.promoPrice,
-        imageUrl: product.imageUrl
-      }));
-      setProducts(formattedData as Product[]);
+      setProducts(data as Product[]);
     }
   }, []);
 
@@ -47,9 +41,9 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
         name, 
         description, 
         price, 
-        promoPrice, // Supabase lida com undefined como NULL
+        promo_price: promoPrice,
         category, 
-        imageUrl,
+        image_url: imageUrl,
         stock
     }]);
     if (error) {
@@ -63,7 +57,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
     const { id, name, description, price, promoPrice, category, imageUrl, stock } = productData;
     const { error } = await supabase
       .from('products')
-      .update({ name, description, price, promoPrice, category, imageUrl, stock })
+      .update({ name, description, price, promo_price: promoPrice, category, image_url: imageUrl, stock })
       .eq('id', id);
     
     if (error) {
