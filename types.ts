@@ -30,3 +30,9 @@ export interface User {
   role: 'client' | 'admin';
   address?: Address;
 }
+
+export interface Category {
+  id: string; // UUID from Supabase
+  name: string;
+  icon_name?: string; // Name of the Lucide icon
+}

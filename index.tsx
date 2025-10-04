@@ -5,6 +5,7 @@ import App from './App';
 import { AuthProvider } from './context/AuthContext';
 import { ProductProvider } from './context/ProductContext';
 import { CartProvider } from './context/CartContext';
+import { CategoryProvider } from './src/context/CategoryContext'; // Importar CategoryProvider
 import ScrollToTop from './src/components/ScrollToTop';
 
 const rootElement = document.getElementById('root');
@@ -18,11 +19,13 @@ root.render(
     <HashRouter>
       <ScrollToTop />
       <AuthProvider>
-        <ProductProvider>
-          <CartProvider>
-            <App />
-          </CartProvider>
-        </ProductProvider>
+        <CategoryProvider> {/* Envolver ProductProvider e CartProvider com CategoryProvider */}
+          <ProductProvider>
+            <CartProvider>
+              <App />
+            </CartProvider>
+          </ProductProvider>
+        </CategoryProvider>
       </AuthProvider>
     </HashRouter>
   </React.StrictMode>

@@ -1,11 +1,4 @@
 import { Beer, CupSoda, GlassWater, Zap, PackagePlus } from 'lucide-react';
 
-export const CATEGORY_DATA = [
-    { name: "Cervejas", icon: Beer },
-    { name: "Refrigerantes", icon: CupSoda },
-    { name: "Whisky", icon: GlassWater },
-    { name: "Energético", icon: Zap },
-    { name: "Combos", icon: PackagePlus },
-];
-
-export const CATEGORIES: string[] = CATEGORY_DATA.map(c => c.name);
+// CATEGORY_DATA e CATEGORIES foram removidos pois as categorias agora são dinâmicas via Supabase.
+// O mapeamento de ícones será feito em src/lib/lucide-icon-map.ts
