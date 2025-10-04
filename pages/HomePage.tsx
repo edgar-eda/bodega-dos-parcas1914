@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Banner from '../components/Banner';
+import StaticBanner from '../components/StaticBanner';
 import CategoryNav from '../components/CategoryNav';
 import ProductCard from '../components/ProductCard';
 import { useProducts } from '../context/ProductContext';
@@ -110,8 +111,12 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4">
-      {!searchTerm.trim() && activeBanner && (
-        <Banner imageUrl={activeBanner.image_url} linkUrl={activeBanner.link_url} />
+      {!searchTerm.trim() && (
+        activeBanner ? (
+          <Banner imageUrl={activeBanner.image_url} linkUrl={activeBanner.link_url} />
+        ) : (
+          <StaticBanner onSeeOffersClick={handleSeeOffersClick} />
+        )
       )}
       <CategoryNav selectedCategory={selectedCategory} onSelectCategory={handleSelectCategory} />
       
