@@ -23,6 +23,8 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  const inputClasses = "bg-primary appearance-none relative block w-full px-4 py-3 border border-zinc-700 placeholder-gray-500 text-accent-cream rounded-lg focus:bg-primary-dark focus:border-accent-green focus:ring-0 focus:outline-none sm:text-sm transition-colors duration-200 ease-in-out";
+
   return (
     <div className="min-h-full bg-primary flex items-center justify-center p-4">
       <div className="max-w-4xl w-full mx-auto bg-primary-dark rounded-2xl shadow-2xl overflow-hidden md:grid md:grid-cols-2">
@@ -30,7 +32,7 @@ const LoginPage: React.FC = () => {
         {/* Lado Esquerdo - Branding */}
         <div className="hidden md:flex flex-col items-center justify-center p-12 bg-primary text-center">
           <img src="/logo.png" alt="Bodega dos Parças Logo" className="h-24 w-auto mb-6" />
-          <h1 className="text-3xl font-extrabold text-accent-red tracking-tight mb-2">
+          <h1 className="text-3xl font-extrabold text-accent-green tracking-tight mb-2">
             Bem-vindo de volta!
           </h1>
           <p className="text-gray-300">
@@ -59,7 +61,7 @@ const LoginPage: React.FC = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="bg-primary appearance-none relative block w-full px-4 py-3 border border-green-700 placeholder-gray-500 text-accent-cream rounded-md focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-accent-red sm:text-sm"
+                className={inputClasses}
                 placeholder="seuemail@exemplo.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -73,11 +75,19 @@ const LoginPage: React.FC = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="bg-primary appearance-none relative block w-full px-4 py-3 border border-green-700 placeholder-gray-500 text-accent-cream rounded-md focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-accent-red sm:text-sm"
+                className={inputClasses}
                 placeholder="Sua senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+            </div>
+
+            <div className="flex items-center justify-end">
+              <div className="text-sm">
+                <Link to="/forgot-password" className="font-medium text-accent-green hover:underline">
+                  Esqueceu sua senha?
+                </Link>
+              </div>
             </div>
 
             {error && <p className="text-red-400 text-sm text-center">{error}</p>}
@@ -85,7 +95,7 @@ const LoginPage: React.FC = () => {
             <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-base font-bold rounded-md text-accent-cream bg-accent-red hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-dark focus:ring-accent-red transition-colors duration-300"
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-base font-bold rounded-md text-primary bg-accent-action hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-dark focus:ring-accent-action transition-all duration-300"
               >
                 Entrar
               </button>
@@ -95,7 +105,7 @@ const LoginPage: React.FC = () => {
           <div className="text-sm text-center mt-8">
             <p className="text-gray-400">
               Não tem uma conta?{' '}
-              <Link to="/register" className="font-medium text-accent-red hover:underline">
+              <Link to="/register" className="font-medium text-accent-green hover:underline">
                 Cadastre-se
               </Link>
             </p>

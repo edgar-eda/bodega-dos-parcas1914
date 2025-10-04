@@ -13,8 +13,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center p-4" aria-modal="true" role="dialog">
-      <div className="bg-primary-dark rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col border border-green-700">
-        <div className="flex justify-between items-center p-4 border-b border-green-700">
+      <div className="bg-primary-dark rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col border border-zinc-700">
+        <div className="flex justify-between items-center p-4 border-b border-zinc-700">
           <h3 className="text-xl font-semibold text-accent-cream">{title}</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-accent-cream" aria-label="Fechar modal">
             <XIcon className="w-6 h-6" />

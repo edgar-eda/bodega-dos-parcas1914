@@ -12,7 +12,7 @@ const AdminPage: React.FC = () => {
   const tabButtonClasses = (tabName: AdminTab) => 
     `px-4 py-2 text-sm font-semibold rounded-md transition-colors flex-shrink-0 ${
         activeTab === tabName 
-        ? 'bg-accent-red text-accent-cream' 
+        ? 'bg-accent-green text-primary' 
         : 'text-gray-300 hover:bg-primary-dark'
     }`;
 
@@ -35,7 +35,7 @@ const AdminPage: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl sm:text-3xl font-bold text-accent-cream mb-6">Painel do Administrador</h1>
       
-      <div className="mb-6 border-b border-green-700">
+      <div className="mb-6 border-b border-zinc-700">
         <div className="flex space-x-2 sm:space-x-4 overflow-x-auto whitespace-nowrap pb-2">
           <button 
             className={tabButtonClasses('dashboard')}

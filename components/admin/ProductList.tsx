@@ -55,7 +55,7 @@ const ProductList: React.FC = () => {
                 <h2 className="text-xl sm:text-2xl font-bold text-accent-cream">Produtos</h2>
                 <button 
                     onClick={handleOpenModalForAdd}
-                    className="flex items-center justify-center sm:justify-start gap-2 bg-accent-yellow text-primary font-bold py-2 px-4 rounded-md hover:bg-yellow-500 transition-colors"
+                    className="flex items-center justify-center sm:justify-start gap-2 bg-accent-action text-primary font-bold py-2 px-4 rounded-md hover:brightness-110 transition-all"
                 >
                     <PlusIcon className="w-5 h-5" />
                     Adicionar Produto
@@ -76,7 +76,7 @@ const ProductList: React.FC = () => {
                     </thead>
                     <tbody className="text-gray-300">
                         {products.map(product => (
-                            <tr key={product.id} className="border-b border-green-700 hover:bg-primary">
+                            <tr key={product.id} className="border-b border-zinc-700 hover:bg-primary">
                                 <td className="py-3 px-4">
                                     <img src={product.imageUrl} alt={product.name} className="w-12 h-12 object-cover rounded-md" />
                                 </td>

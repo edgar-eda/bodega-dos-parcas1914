@@ -16,12 +16,12 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
     const baseClasses = `
       flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full whitespace-nowrap flex-shrink-0
       transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 
-      focus:ring-accent-red focus:ring-offset-2 focus:ring-offset-primary
+      focus:ring-accent-green focus:ring-offset-2 focus:ring-offset-primary
     `;
     if (isActive) {
-      return `${baseClasses} bg-accent-red text-accent-cream shadow-lg shadow-red-900/40 scale-105`;
+      return `${baseClasses} bg-accent-green text-primary shadow-lg shadow-green-900/40 scale-105`;
     }
-    return `${baseClasses} bg-primary-dark text-accent-cream shadow-sm border border-green-700 hover:bg-green-900 hover:shadow-md hover:-translate-y-0.5`;
+    return `${baseClasses} bg-primary-dark text-accent-cream shadow-sm border border-zinc-700 hover:bg-primary hover:shadow-md hover:-translate-y-0.5`;
   };
 
   const checkScrollability = () => {
@@ -68,7 +68,7 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
       onClick={onClick}
       disabled={disabled}
       className={`absolute ${direction === 'left' ? 'left-0' : 'right-0'} top-1/2 -translate-y-1/2 z-10
-                 bg-primary-dark/80 backdrop-blur-sm rounded-full p-1 shadow-md border border-green-700
+                 bg-primary-dark/80 backdrop-blur-sm rounded-full p-1 shadow-md border border-zinc-700
                  hover:bg-primary-dark transition-all duration-200
                  disabled:opacity-0 disabled:pointer-events-none
                  sm:hidden`}
@@ -79,7 +79,7 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
   );
 
   return (
-    <div className="py-4 sticky top-16 bg-primary z-40 border-b border-green-700">
+    <div className="py-4 sticky top-16 bg-primary z-40 border-b border-zinc-800">
       <div className="container mx-auto px-4">
         <div className="relative">
           <div 

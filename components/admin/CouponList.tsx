@@ -78,7 +78,7 @@ const CouponList: React.FC = () => {
                 <h2 className="text-xl sm:text-2xl font-bold text-accent-cream">Cupons de Desconto</h2>
                 <button 
                     onClick={handleOpenModalForAdd}
-                    className="flex items-center justify-center sm:justify-start gap-2 bg-accent-red text-accent-cream font-bold py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
+                    className="flex items-center justify-center sm:justify-start gap-2 bg-accent-action text-primary font-bold py-2 px-4 rounded-md hover:brightness-110 transition-all"
                 >
                     <PlusIcon className="w-5 h-5" />
                     Adicionar Cupom
@@ -98,8 +98,8 @@ const CouponList: React.FC = () => {
                     </thead>
                     <tbody className="text-gray-300">
                         {coupons.map(coupon => (
-                            <tr key={coupon.id} className="border-b border-green-700 hover:bg-primary">
-                                <td className="py-3 px-4 font-mono text-accent-red font-bold">{coupon.code}</td>
+                            <tr key={coupon.id} className="border-b border-zinc-700 hover:bg-primary">
+                                <td className="py-3 px-4 font-mono text-accent-action font-bold">{coupon.code}</td>
                                 <td className="py-3 px-4">{coupon.discount_value}%</td>
                                 <td className="py-3 px-4">{coupon.expires_at ? new Date(coupon.expires_at).toLocaleDateString('pt-BR') : 'Não expira'}</td>
                                 <td className="py-3 px-4">{getStatus(coupon)}</td>

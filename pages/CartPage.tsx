@@ -40,7 +40,7 @@ const CartPage: React.FC = () => {
         <div className="container mx-auto px-4 py-12 text-center">
             <h1 className="text-2xl sm:text-3xl font-bold mb-4">Acesso Negado</h1>
             <p className="text-gray-400 mb-8">Você precisa fazer login para ver seu carrinho.</p>
-            <Link to="/login" className="bg-accent-red text-accent-cream font-bold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">
+            <Link to="/login" className="bg-accent-action text-primary font-bold py-3 px-6 rounded-full hover:brightness-110 transition-all">
             Ir para Login
             </Link>
       </div>
@@ -52,7 +52,7 @@ const CartPage: React.FC = () => {
       <div className="container mx-auto px-4 py-12 text-center">
         <h1 className="text-2xl sm:text-3xl font-bold mb-4">Seu carrinho está vazio</h1>
         <p className="text-gray-400 mb-8">Que tal adicionar alguns produtos?</p>
-        <Link to="/" className="bg-accent-red text-accent-cream font-bold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">
+        <Link to="/" className="bg-accent-action text-primary font-bold py-3 px-6 rounded-full hover:brightness-110 transition-all">
           Continuar comprando
         </Link>
       </div>
@@ -68,7 +68,7 @@ const CartPage: React.FC = () => {
         <div className="w-full lg:w-2/3 bg-primary-dark rounded-lg shadow-lg p-4 sm:p-6">
           <div className="space-y-6">
             {cartItems.map(item => (
-              <div key={item.id} className="flex flex-col sm:flex-row gap-4 border-b border-green-700 pb-6 last:border-b-0">
+              <div key={item.id} className="flex flex-col sm:flex-row gap-4 border-b border-zinc-700 pb-6 last:border-b-0">
                 <img src={item.imageUrl} alt={item.name} className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-md self-center sm:self-start" />
                 <div className="flex-grow flex flex-col justify-between w-full">
                   <div>
@@ -76,13 +76,13 @@ const CartPage: React.FC = () => {
                     <p className="text-gray-400 text-sm">{formatCurrency(item.promoPrice || item.price)} / unidade</p>
                   </div>
                   <div className="flex items-center justify-between mt-2 sm:mt-0">
-                    <div className="flex items-center border border-green-700 rounded-full">
-                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-2 text-gray-400 hover:text-accent-red"><MinusIcon className="w-5 h-5"/></button>
+                    <div className="flex items-center border border-zinc-700 rounded-full">
+                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-2 text-gray-400 hover:text-accent-action"><MinusIcon className="w-5 h-5"/></button>
                       <span className="px-3 font-bold">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="p-2 text-gray-400 hover:text-accent-red"><PlusIcon className="w-5 h-5"/></button>
+                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="p-2 text-gray-400 hover:text-accent-action"><PlusIcon className="w-5 h-5"/></button>
                     </div>
-                    <p className="font-bold text-lg text-accent-red">{formatCurrency((item.promoPrice || item.price) * item.quantity)}</p>
-                    <button onClick={() => removeFromCart(item.id)} className="text-gray-500 hover:text-accent-red p-2"><TrashIcon className="w-6 h-6"/></button>
+                    <p className="font-bold text-lg text-accent-action">{formatCurrency((item.promoPrice || item.price) * item.quantity)}</p>
+                    <button onClick={() => removeFromCart(item.id)} className="text-gray-500 hover:text-red-500 p-2"><TrashIcon className="w-6 h-6"/></button>
                   </div>
                 </div>
               </div>
@@ -93,7 +93,7 @@ const CartPage: React.FC = () => {
         {/* Order Summary */}
         <div className="w-full lg:w-1/3">
           <div className="bg-primary-dark rounded-lg shadow-lg p-6 h-fit sticky top-24">
-            <h2 className="text-xl font-bold mb-4 border-b border-green-700 pb-4">Resumo do Pedido</h2>
+            <h2 className="text-xl font-bold mb-4 border-b border-zinc-700 pb-4">Resumo do Pedido</h2>
             <div className="space-y-3 mb-4">
               <div className="flex justify-between">
                 <span>Subtotal</span>
@@ -110,9 +110,9 @@ const CartPage: React.FC = () => {
                 <span>{formatCurrency(deliveryFee)}</span>
               </div>
             </div>
-            <div className="flex justify-between font-bold text-xl border-t border-green-700 pt-4 mb-6">
+            <div className="flex justify-between font-bold text-xl border-t border-zinc-700 pt-4 mb-6">
               <span>Total</span>
-              <span className="text-accent-red">{formatCurrency(getTotalPrice())}</span>
+              <span className="text-accent-action">{formatCurrency(getTotalPrice())}</span>
             </div>
             
             {/* Coupon Section */}
@@ -130,9 +130,9 @@ const CartPage: React.FC = () => {
                       value={couponCode}
                       onChange={(e) => setCouponCode(e.target.value)}
                       placeholder="Cupom de desconto"
-                      className="flex-grow bg-primary border border-green-700 rounded-lg px-3 py-2 text-sm focus:bg-primary-dark focus:border-accent-red focus:ring-0 focus:outline-none transition-colors duration-200 ease-in-out"
+                      className="flex-grow bg-primary border border-zinc-700 rounded-lg px-3 py-2 text-sm focus:bg-primary-dark focus:border-accent-green focus:ring-0 focus:outline-none transition-colors duration-200 ease-in-out"
                     />
-                    <button onClick={handleApplyCoupon} className="bg-accent-yellow text-primary font-bold px-4 rounded-md hover:bg-yellow-500 transition-colors text-sm">Aplicar</button>
+                    <button onClick={handleApplyCoupon} className="bg-accent-green text-primary font-bold px-4 rounded-md hover:brightness-110 transition-colors text-sm">Aplicar</button>
                   </div>
                   {couponMessage && (
                     <p className={`text-xs mt-2 ${couponMessage.type === 'success' ? 'text-emerald-400' : 'text-red-400'}`}>
@@ -145,7 +145,7 @@ const CartPage: React.FC = () => {
 
             <button 
               onClick={() => navigate('/checkout')}
-              className="w-full bg-accent-red text-accent-cream font-bold py-3 rounded-full hover:bg-red-700 transition-colors">
+              className="w-full bg-accent-action text-primary font-bold py-3 rounded-full hover:brightness-110 transition-all">
               Finalizar Pedido
             </button>
           </div>

@@ -32,7 +32,7 @@ const Header: React.FC = () => {
             <input
               type="text"
               placeholder="Buscar..."
-              className="w-full bg-primary border-2 border-green-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:bg-primary-dark focus:border-accent-red transition-colors duration-200 ease-in-out text-sm sm:text-base text-accent-cream placeholder-gray-400"
+              className="w-full bg-primary border-2 border-zinc-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:bg-primary-dark focus:border-accent-green transition-colors duration-200 ease-in-out text-sm sm:text-base text-accent-cream placeholder-gray-400"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -44,16 +44,16 @@ const Header: React.FC = () => {
             <div className="flex items-center gap-2 sm:gap-4 text-sm">
               <span className="hidden sm:inline text-accent-cream">Olá, {user.name.split(' ')[0]}</span>
               {user.role === 'admin' && (
-                <Link to="/admin" className="font-semibold text-accent-red hover:underline whitespace-nowrap">
+                <Link to="/admin" className="font-semibold text-accent-green hover:underline whitespace-nowrap">
                   Admin
                 </Link>
               )}
-              <button onClick={handleLogout} className="font-semibold text-accent-cream hover:text-accent-red">
+              <button onClick={handleLogout} className="font-semibold text-accent-cream hover:text-accent-green">
                 Sair
               </button>
             </div>
           ) : (
-            <Link to="/login" className="bg-accent-red text-accent-cream font-bold py-2 px-3 rounded-full hover:bg-red-700 transition-colors text-sm whitespace-nowrap">
+            <Link to="/login" className="bg-accent-action text-primary font-bold py-2 px-3 rounded-full hover:brightness-110 transition-all text-sm whitespace-nowrap">
               Entrar
             </Link>
           )}
