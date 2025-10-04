@@ -42,7 +42,7 @@ const Header: React.FC = () => {
         <div className="flex items-center gap-1 sm:gap-2">
           {user ? (
             <div className="flex items-center gap-2 sm:gap-4 text-sm">
-              <span className="hidden md:inline text-accent-cream">Olá, {user.name.split(' ')[0]}</span>
+              <span className="hidden sm:inline text-accent-cream">Olá, {user.name.split(' ')[0]}</span>
               {user.role === 'admin' && (
                 <Link to="/admin" className="font-semibold text-accent-red hover:underline whitespace-nowrap">
                   Admin
