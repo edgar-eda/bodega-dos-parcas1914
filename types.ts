@@ -29,6 +29,7 @@ export interface User {
   email: string;
   role: 'client' | 'admin';
   address?: Address;
+  cpf?: string;
 }
 
 export interface Coupon {

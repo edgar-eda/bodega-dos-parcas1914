@@ -7,7 +7,7 @@ interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<{ error: any }>;
   logout: () => Promise<void>;
-  register: (name: string, email: string, password: string, address: Address) => Promise<{ error: any }>;
+  register: (name: string, email: string, password: string, address: Address, cpf: string) => Promise<{ error: any }>;
   updateUserAddress: (address: Address) => Promise<{ error: any }>;
 }
 
@@ -58,6 +58,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         email: supabaseUser.email!,
         role: profile.role,
         address: profile.address,
+        cpf: profile.cpf,
       });
     }
   };
@@ -78,7 +79,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setUser(null);
   };
 
-  const register = async (name: string, email: string, password: string, address: Address) => {
+  const register = async (name: string, email: string, password: string, address: Address, cpf: string) => {
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -86,6 +87,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         data: {
           name,
           address,
+          cpf,
         },
       },
     });

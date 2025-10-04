@@ -7,6 +7,7 @@ const RegisterPage: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [cpf, setCpf] = useState('');
   const [address, setAddress] = useState<Address>({
     cep: '',
     rua: '',
@@ -33,9 +34,13 @@ const RegisterPage: React.FC = () => {
         return;
     }
     try {
-      const { error: registerError } = await register(name, email, password, address);
+      const { error: registerError } = await register(name, email, password, address, cpf);
       if (registerError) {
-        setError(registerError.message);
+        if (registerError.message.includes('profiles_cpf_key')) {
+            setError('Este CPF já está cadastrado.');
+        } else {
+            setError(registerError.message);
+        }
       } else {
         setMessage('Cadastro realizado com sucesso! Por favor, verifique seu email para confirmar sua conta.');
         setTimeout(() => navigate('/login'), 5000);
@@ -66,6 +71,9 @@ const RegisterPage: React.FC = () => {
               <input name="name" type="text" required value={name} onChange={e => setName(e.target.value)}
                 className={inputClasses}
                 placeholder="Nome completo" />
+              <input name="cpf" type="text" required value={cpf} onChange={e => setCpf(e.target.value)}
+                className={inputClasses}
+                placeholder="CPF" />
               <input name="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)}
                 className={inputClasses}
                 placeholder="Email" />
