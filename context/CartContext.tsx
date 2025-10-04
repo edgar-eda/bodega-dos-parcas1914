@@ -1,6 +1,6 @@
-
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
-import { Product, CartItem } from '../types';
+import { Product, CartItem, Coupon } from '../types';
+import { supabase } from '@/src/integrations/supabase/client';
 
 interface CartContextType {
   cartItems: CartItem[];
@@ -10,6 +10,10 @@ interface CartContextType {
   clearCart: () => void;
   getItemCount: () => number;
   getTotalPrice: () => number;
+  applyCoupon: (code: string) => Promise<{ success: boolean; message: string }>;
+  removeCoupon: () => void;
+  appliedCoupon: Coupon | null;
+  discount: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -24,10 +28,54 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return [];
     }
   });
+  const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
+  const [discount, setDiscount] = useState(0);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    // Recalculate discount if cart changes
+    if (appliedCoupon) {
+      calculateDiscount(appliedCoupon);
+    }
   }, [cartItems]);
+
+  const calculateDiscount = (coupon: Coupon) => {
+    const subtotal = cartItems.reduce((total, item) => total + (item.promoPrice || item.price) * item.quantity, 0);
+    if (coupon.discount_type === 'percentage') {
+      const discountAmount = subtotal * (coupon.discount_value / 100);
+      setDiscount(discountAmount);
+    } else {
+      setDiscount(0);
+    }
+  };
+
+  const applyCoupon = async (code: string): Promise<{ success: boolean; message: string }> => {
+    const { data, error } = await supabase
+      .from('coupons')
+      .select('*')
+      .eq('code', code.toUpperCase())
+      .single();
+
+    if (error || !data) {
+      return { success: false, message: 'Cupom inválido ou não encontrado.' };
+    }
+
+    const coupon = data as Coupon;
+    const isExpired = coupon.expires_at && new Date(coupon.expires_at) < new Date();
+
+    if (!coupon.is_active || isExpired) {
+      return { success: false, message: 'Este cupom não é mais válido.' };
+    }
+
+    setAppliedCoupon(coupon);
+    calculateDiscount(coupon);
+    return { success: true, message: 'Cupom aplicado com sucesso!' };
+  };
+
+  const removeCoupon = () => {
+    setAppliedCoupon(null);
+    setDiscount(0);
+  };
 
   const addToCart = (product: Product, quantity: number) => {
     setCartItems(prevItems => {
@@ -59,6 +107,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const clearCart = () => {
     setCartItems([]);
+    removeCoupon();
   };
 
   const getItemCount = () => {
@@ -68,11 +117,12 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const getTotalPrice = () => {
     const deliveryFee = 5.00;
     const subtotal = cartItems.reduce((total, item) => total + (item.promoPrice || item.price) * item.quantity, 0);
-    return subtotal + deliveryFee;
+    const total = subtotal + deliveryFee - discount;
+    return total > deliveryFee ? total : deliveryFee; // Ensure total doesn't go below delivery fee
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart, getItemCount, getTotalPrice }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart, getItemCount, getTotalPrice, applyCoupon, removeCoupon, appliedCoupon, discount }}>
       {children}
     </CartContext.Provider>
   );

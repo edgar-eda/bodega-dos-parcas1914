@@ -30,3 +30,12 @@ export interface User {
   role: 'client' | 'admin';
   address?: Address;
 }
+
+export interface Coupon {
+  id: string;
+  code: string;
+  discount_type: 'percentage';
+  discount_value: number;
+  is_active: boolean;
+  expires_at?: string;
+}

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import ProductList from '../components/admin/ProductList';
 import Dashboard from '../components/admin/Dashboard';
 import BannerList from '../components/admin/BannerList';
+import CouponList from '../components/admin/CouponList';
 
-type AdminTab = 'dashboard' | 'products' | 'banners';
+type AdminTab = 'dashboard' | 'products' | 'banners' | 'coupons';
 
 const AdminPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
@@ -39,6 +40,12 @@ const AdminPage: React.FC = () => {
           >
             Gerenciar Banners
           </button>
+          <button 
+            className={tabButtonClasses('coupons')}
+            onClick={() => setActiveTab('coupons')}
+          >
+            Cupons
+          </button>
         </div>
       </div>
 
@@ -46,9 +53,7 @@ const AdminPage: React.FC = () => {
         {activeTab === 'dashboard' && <Dashboard />}
         {activeTab === 'products' && <ProductList />}
         {activeTab === 'banners' && <BannerList />}
+        {activeTab === 'coupons' && <CouponList />}
       </div>
     </div>
   );
-};
-
-export default AdminPage;
