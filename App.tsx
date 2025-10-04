@@ -12,6 +12,9 @@ import RegisterPage from './pages/RegisterPage';
 import AdminPage from './pages/AdminPage';
 import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './context/AuthContext';
+import AboutPage from './src/pages/AboutPage';
+import TermsPage from './src/pages/TermsPage';
+import PrivacyPolicyPage from './src/pages/PrivacyPolicyPage';
 
 const App: React.FC = () => {
   const { user } = useAuth();
@@ -40,6 +43,9 @@ const App: React.FC = () => {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route 
             path="/admin" 
             element={

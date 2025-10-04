@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FacebookIcon, InstagramIcon, TwitterIcon } from './icons';
 
 const Footer: React.FC = () => {
@@ -13,9 +14,9 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">Links Úteis</h3>
             <ul>
-              <li className="mb-2"><a href="#" className="text-gray-300 hover:text-primary transition-colors">Sobre nós</a></li>
-              <li className="mb-2"><a href="#" className="text-gray-300 hover:text-primary transition-colors">Termos de Serviço</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-primary transition-colors">Política de Privacidade</a></li>
+              <li className="mb-2"><Link to="/about" className="text-gray-300 hover:text-primary transition-colors">Sobre nós</Link></li>
+              <li className="mb-2"><Link to="/terms" className="text-gray-300 hover:text-primary transition-colors">Termos de Serviço</Link></li>
+              <li><Link to="/privacy" className="text-gray-300 hover:text-primary transition-colors">Política de Privacidade</Link></li>
             </ul>
           </div>
           <div>
