@@ -5,6 +5,7 @@ import CartIcon from './CartIcon';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
+import logo from '../logo.png'; // Importando a logo
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();
@@ -22,7 +23,7 @@ const Header: React.FC = () => {
     <header className="fixed top-0 left-0 right-0 bg-primary-dark shadow-lg z-50">
       <div className="container mx-auto px-2 sm:px-4 py-3 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/logo.png" alt="Bodega dos Parças Logo" className="h-8 sm:h-10 w-auto" />
+          <img src={logo} alt="Bodega dos Parças Logo" className="h-8 sm:h-10 w-auto" />
           <span className="hidden sm:block text-lg sm:text-2xl font-extrabold text-accent-cream tracking-tight">
             Bodega dos Parças
           </span>
