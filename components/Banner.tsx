@@ -8,10 +8,11 @@ const Banner: React.FC<BannerProps> = ({ onSeeOffersClick }) => {
   return (
     <div 
       className="relative text-white rounded-lg shadow-2xl overflow-hidden my-6 bg-cover bg-center" 
-      style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1587888637146-838a5a2d2353?q=80&w=1200&auto=format&fit=crop)' }}
+      // New, more colorful image of drinks
+      style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1551024709-8f23eda2c5a5?q=80&w=1200&auto=format&fit=crop)' }}
     >
-      {/* Overlay para legibilidade do texto */}
-      <div className="absolute inset-0 bg-black/60"></div>
+      {/* Overlay with blur effect */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
       
       <div className="relative p-8 md:p-12 flex flex-col items-center justify-center text-center min-h-[350px] md:min-h-[400px]">
         <img 
