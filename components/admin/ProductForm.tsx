@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useProducts } from '../../context/ProductContext';
 import { Product } from '../../types';
 import { CATEGORIES } from '../../constants';
+import { PlusIcon, TrashIcon } from '../icons';
 
 interface ProductFormProps {
   productToEdit: Product | null;
@@ -19,6 +20,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
     imageUrl: '',
     stock: '0',
   });
+  const [specifications, setSpecifications] = useState<{ key: string; value: string }[]>([]);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
@@ -33,6 +35,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
         imageUrl: productToEdit.imageUrl,
         stock: productToEdit.stock.toString(),
       });
+      setSpecifications(productToEdit.specifications ? Object.entries(productToEdit.specifications).map(([key, value]) => ({ key, value })) : []);
       setImagePreview(productToEdit.imageUrl);
       setImageFile(null);
     } else {
@@ -40,6 +43,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
       setProductData({
         name: '', description: '', price: '', promoPrice: '', category: CATEGORIES[0], imageUrl: '', stock: '0',
       });
+      setSpecifications([]);
       setImageFile(null);
       setImagePreview(null);
     }
@@ -58,13 +62,33 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
     }
   };
 
+  const handleSpecChange = (index: number, field: 'key' | 'value', value: string) => {
+    const newSpecs = [...specifications];
+    newSpecs[index][field] = value;
+    setSpecifications(newSpecs);
+  };
+
+  const addSpecField = () => {
+    setSpecifications([...specifications, { key: '', value: '' }]);
+  };
+
+  const removeSpecField = (index: number) => {
+    setSpecifications(specifications.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const specsObject = specifications.reduce((obj, item) => {
+        if (item.key) obj[item.key] = item.value;
+        return obj;
+    }, {} as { [key: string]: string });
+
     const formattedData = {
         ...productData,
         price: parseFloat(productData.price),
         promoPrice: productData.promoPrice ? parseFloat(productData.promoPrice) : undefined,
         stock: parseInt(productData.stock, 10) || 0,
+        specifications: specsObject,
     };
     
     if(productToEdit) {
@@ -91,6 +115,23 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
         <input type="number" name="promoPrice" placeholder="Preço Promocional (Opcional)" value={productData.promoPrice} onChange={handleChange} className={inputClasses} step="0.01" />
         <input type="number" name="stock" placeholder="Estoque" value={productData.stock} onChange={handleChange} required className={inputClasses} min="0" />
       </div>
+      
+      <div>
+        <h3 className="text-lg font-semibold text-gray-300 mb-2">Especificações</h3>
+        <div className="space-y-2">
+          {specifications.map((spec, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <input type="text" placeholder="Nome (Ex: Volume)" value={spec.key} onChange={(e) => handleSpecChange(index, 'key', e.target.value)} className={inputClasses} />
+              <input type="text" placeholder="Valor (Ex: 350ml)" value={spec.value} onChange={(e) => handleSpecChange(index, 'value', e.target.value)} className={inputClasses} />
+              <button type="button" onClick={() => removeSpecField(index)} className="p-2 text-red-400 hover:text-red-300"><TrashIcon className="w-5 h-5"/></button>
+            </div>
+          ))}
+        </div>
+        <button type="button" onClick={addSpecField} className="mt-2 flex items-center gap-2 text-sm text-accent-yellow font-semibold hover:underline">
+          <PlusIcon className="w-4 h-4" /> Adicionar Especificação
+        </button>
+      </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-1">Imagem do Produto</label>
         <input type="file" accept="image/*" onChange={handleImageChange} className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent-yellow/10 file:text-accent-yellow hover:file:bg-accent-yellow/20"/>

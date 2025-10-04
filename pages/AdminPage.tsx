@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import ProductList from '../components/admin/ProductList';
 import Dashboard from '../components/admin/Dashboard';
+import ClientList from '../components/admin/ClientList';
 
-type AdminTab = 'dashboard' | 'products';
+type AdminTab = 'dashboard' | 'products' | 'clients';
 
 const AdminPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
@@ -32,12 +33,19 @@ const AdminPage: React.FC = () => {
           >
             Gerenciar Produtos
           </button>
+          <button 
+            className={tabButtonClasses('clients')}
+            onClick={() => setActiveTab('clients')}
+          >
+            Gerenciar Clientes
+          </button>
         </div>
       </div>
 
       <div className="bg-primary-dark p-4 sm:p-6 rounded-lg shadow-lg">
         {activeTab === 'dashboard' && <Dashboard />}
         {activeTab === 'products' && <ProductList />}
+        {activeTab === 'clients' && <ClientList />}
       </div>
     </div>
   );

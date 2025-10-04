@@ -69,7 +69,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
         }
     }
 
-    const { name, description, price, promoPrice, category, stock } = productData;
+    const { name, description, price, promoPrice, category, stock, specifications } = productData;
     const { error } = await supabase.from('products').insert([{ 
         name, 
         description, 
@@ -77,7 +77,8 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
         promo_price: promoPrice,
         category, 
         image_url: imageUrl,
-        stock
+        stock,
+        specifications
     }]);
     if (error) {
         console.error("Error adding product:", error);
@@ -99,10 +100,10 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
         }
     }
 
-    const { id, name, description, price, promoPrice, category, stock } = productData;
+    const { id, name, description, price, promoPrice, category, stock, specifications } = productData;
     const { error } = await supabase
       .from('products')
-      .update({ name, description, price, promo_price: promoPrice, category, image_url: imageUrl, stock })
+      .update({ name, description, price, promo_price: promoPrice, category, image_url: imageUrl, stock, specifications })
       .eq('id', id);
     
     if (error) {

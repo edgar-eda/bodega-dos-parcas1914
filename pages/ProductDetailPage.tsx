@@ -41,6 +41,8 @@ const ProductDetailPage: React.FC = () => {
     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
+  const hasSpecifications = product.specifications && Object.keys(product.specifications).length > 0;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-300 hover:text-accent-yellow mb-6 font-semibold">
@@ -57,6 +59,20 @@ const ProductDetailPage: React.FC = () => {
             <h1 className="text-2xl sm:text-3xl font-bold text-accent-cream mb-4">{product.name}</h1>
             <p className="text-gray-400 mb-6">{product.description}</p>
             
+            {hasSpecifications && (
+              <div className="mb-6 border-t border-b border-green-700 py-4">
+                <h3 className="text-lg font-semibold text-accent-cream mb-3">Detalhes</h3>
+                <ul className="space-y-2 text-gray-300">
+                  {Object.entries(product.specifications!).map(([key, value]) => (
+                    <li key={key} className="flex justify-between">
+                      <span className="font-semibold">{key}:</span>
+                      <span>{value}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <div className="mb-6">
               {product.promoPrice ? (
                 <div className="flex items-baseline gap-3">

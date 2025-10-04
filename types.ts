@@ -7,6 +7,7 @@ export interface Product {
   category: string;
   imageUrl: string;
   stock: number;
+  specifications?: { [key: string]: string };
 }
 
 export interface CartItem extends Product {
@@ -28,4 +29,5 @@ export interface User {
   email: string;
   role: 'client' | 'admin';
   address?: Address;
+  is_banned?: boolean;
 }
