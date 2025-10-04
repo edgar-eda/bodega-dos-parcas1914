@@ -88,14 +88,14 @@ const RegisterPage: React.FC = () => {
                 value={cpf}
                 onChange={e => setCpf(e.target.value)}
               >
-                {(inputProps: any) => <input {...inputProps} name="cpf" type="text" required className={inputClasses} placeholder="CPF" />}
+                {(inputProps: any) => <input {...inputProps} name="cpf" type="text" required className={inputClasses} placeholder="CPF" inputMode="numeric" />}
               </InputMask>
               <InputMask
                 mask="(99) 99999-9999"
                 value={celular}
                 onChange={e => setCelular(e.target.value)}
               >
-                {(inputProps: any) => <input {...inputProps} name="celular" type="text" required className={inputClasses} placeholder="Celular com DDD" />}
+                {(inputProps: any) => <input {...inputProps} name="celular" type="text" required className={inputClasses} placeholder="Celular com DDD" inputMode="numeric" />}
               </InputMask>
               <input name="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)}
                 className={inputClasses}
@@ -111,12 +111,13 @@ const RegisterPage: React.FC = () => {
                 mask="99999-999"
                 value={address.cep}
                 onChange={handleAddressChange}
+                name="cep"
               >
-                {(inputProps: any) => <input {...inputProps} type="text" placeholder="CEP" name="cep" required className={inputClasses} />}
+                {(inputProps: any) => <input {...inputProps} type="text" placeholder="CEP" required className={inputClasses} inputMode="numeric" />}
               </InputMask>
               <input type="text" placeholder="Rua / Avenida" name="rua" value={address.rua} onChange={handleAddressChange} required className={inputClasses} />
               <div className="grid grid-cols-2 gap-4">
-                  <input type="text" placeholder="Número" name="numero" value={address.numero} onChange={handleAddressChange} required className={inputClasses} />
+                  <input type="text" placeholder="Número" name="numero" value={address.numero} onChange={handleAddressChange} required className={inputClasses} inputMode="numeric" />
                   <input type="text" placeholder="Bairro" name="bairro" value={address.bairro} onChange={handleAddressChange} required className={inputClasses} />
               </div>
               <input type="text" placeholder="Complemento (Opcional)" name="complemento" value={address.complemento} onChange={handleAddressChange} className={inputClasses} />
