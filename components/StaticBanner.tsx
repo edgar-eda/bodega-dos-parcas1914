@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '@/src/logo.png'; // Caminho corrigido com alias
+import logo from '../logo.png'; // Caminho corrigido para a raiz
 
 interface StaticBannerProps {
   onSeeOffersClick: () => void;
