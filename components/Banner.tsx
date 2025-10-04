@@ -8,6 +8,7 @@ const Banner: React.FC<BannerProps> = ({ onSeeOffersClick }) => {
   return (
     <div 
       className="relative text-white rounded-lg shadow-2xl overflow-hidden my-6 bg-cover bg-center" 
+      // TODO: Você pode trocar a URL da imagem de fundo aqui. Recomendo usar imagens do Unsplash.com para alta qualidade.
       // Image of a shelf with various drinks, fitting the "bodega" theme
       style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1586968055324-e2d0456a0e75?q=80&w=1200&auto=format&fit=crop)' }}
     >
