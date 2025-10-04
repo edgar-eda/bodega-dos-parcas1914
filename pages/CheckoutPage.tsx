@@ -3,21 +3,35 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
+import { EditIcon } from '../components/icons';
+import Modal from '../components/Modal';
+import AddressForm from '../components/AddressForm';
+import { Address } from '../types';
 
 const WHATSAPP_PHONE_NUMBER = "5581995016183";
 
 const CheckoutPage: React.FC = () => {
   const { cartItems, getTotalPrice, clearCart } = useCart();
-  const { user } = useAuth();
+  const { user, updateUserAddress } = useAuth();
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [orderSent, setOrderSent] = useState(false);
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
 
   const subtotal = cartItems.reduce((total, item) => total + (item.promoPrice || item.price) * item.quantity, 0);
   const deliveryFee = 5.00;
 
   const formatCurrency = (value: number) => {
     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  };
+
+  const handleAddressUpdate = async (newAddress: Address) => {
+    const { error } = await updateUserAddress(newAddress);
+    if (error) {
+        alert('Ocorreu um erro ao atualizar o endereço. Tente novamente.');
+    } else {
+        setIsAddressModalOpen(false);
+    }
   };
 
   if (!user) {
@@ -39,8 +53,9 @@ const CheckoutPage: React.FC = () => {
       navigate('/');
       return;
     }
-    if (!user.address) {
-      alert("Endereço de entrega não encontrado! Por favor, atualize seu cadastro.");
+    if (!user.address || !user.address.rua) {
+      alert("Endereço de entrega não encontrado! Por favor, adicione um endereço para continuar.");
+      setIsAddressModalOpen(true);
       return;
     }
 
@@ -125,8 +140,14 @@ Agradeço e aguardo a confirmação! 😊
       <form onSubmit={handleSendToWhatsapp} className="flex flex-col lg:flex-row gap-8 items-start">
         <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-lg p-6 space-y-6 order-last lg:order-first">
           <div>
-            <h2 className="text-xl font-bold mb-4">Endereço de Entrega</h2>
-            {user.address ? (
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">Endereço de Entrega</h2>
+              <button type="button" onClick={() => setIsAddressModalOpen(true)} className="flex items-center gap-2 text-sm text-primary font-semibold hover:underline">
+                <EditIcon className="w-4 h-4" />
+                {user.address ? 'Editar' : 'Adicionar'}
+              </button>
+            </div>
+            {user.address && user.address.rua ? (
               <div className="bg-gray-100 p-4 rounded-md text-gray-700 space-y-1">
                 <p><strong>Rua:</strong> {user.address.rua}, {user.address.numero}</p>
                 <p><strong>Bairro:</strong> {user.address.bairro}</p>
@@ -135,7 +156,10 @@ Agradeço e aguardo a confirmação! 😊
                 {user.address.referencia && <p><strong>Referência:</strong> {user.address.referencia}</p>}
               </div>
             ) : (
-              <p className="text-red-500">Nenhum endereço cadastrado.</p>
+              <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
+                <p className="font-bold">Nenhum endereço cadastrado.</p>
+                <p>Por favor, adicione um endereço para continuar.</p>
+              </div>
             )}
           </div>
           <div>
@@ -187,12 +211,24 @@ Agradeço e aguardo a confirmação! 😊
               <span>Total a pagar</span>
               <span>{formatCurrency(getTotalPrice())}</span>
             </div>
-            <button type="submit" className="w-full bg-primary text-white font-bold py-3 rounded-full hover:bg-primary-dark transition-colors disabled:bg-gray-400" disabled={cartItems.length === 0}>
+            <button type="submit" className="w-full bg-primary text-white font-bold py-3 rounded-full hover:bg-primary-dark transition-colors disabled:bg-gray-400" disabled={cartItems.length === 0 || !user.address}>
               Enviar Pedido via WhatsApp
             </button>
           </div>
         </div>
       </form>
+
+      <Modal
+        isOpen={isAddressModalOpen}
+        onClose={() => setIsAddressModalOpen(false)}
+        title={user.address ? "Editar Endereço" : "Adicionar Endereço"}
+      >
+        <AddressForm
+            initialAddress={user.address}
+            onSubmit={handleAddressUpdate}
+            onCancel={() => setIsAddressModalOpen(false)}
+        />
+      </Modal>
     </div>
   );
 };

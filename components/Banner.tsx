@@ -8,9 +8,8 @@ const Banner: React.FC<BannerProps> = ({ onSeeOffersClick }) => {
   return (
     <div 
       className="relative text-white rounded-lg shadow-2xl overflow-hidden my-6 bg-cover bg-center" 
-      // TODO: Você pode trocar a URL da imagem de fundo aqui. Recomendo usar imagens do Unsplash.com para alta qualidade.
-      // Image of a shelf with various drinks, fitting the "bodega" theme
-      style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1586968055324-e2d0456a0e75?q=80&w=1200&auto=format&fit=crop)' }}
+      // Imagem de bebidas geladas em um cooler, mais alinhada com a proposta da Bodega.
+      style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1553531384-411a247ccd78?q=80&w=2070&auto=format&fit=crop)' }}
     >
       {/* Grey overlay with blur effect */}
       <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm"></div>

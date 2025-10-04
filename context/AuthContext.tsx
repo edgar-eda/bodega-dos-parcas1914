@@ -8,6 +8,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<{ error: any }>;
   logout: () => Promise<void>;
   register: (name: string, email: string, password: string, address: Address) => Promise<{ error: any }>;
+  updateUserAddress: (address: Address) => Promise<{ error: any }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -88,8 +89,29 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return { error };
   };
 
+  const updateUserAddress = async (address: Address) => {
+    if (!user) {
+        const error = { message: "Usuário não autenticado." };
+        console.error(error.message);
+        return { error };
+    }
+
+    const { error } = await supabase
+      .from('profiles')
+      .update({ address: address })
+      .eq('id', user.id);
+
+    if (error) {
+        console.error("Erro ao atualizar o endereço:", error);
+    } else {
+        // Update local state for immediate UI feedback
+        setUser(prevUser => prevUser ? { ...prevUser, address } : null);
+    }
+    return { error };
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, register }}>
+    <AuthContext.Provider value={{ user, login, logout, register, updateUserAddress }}>
       {!loading && children}
     </AuthContext.Provider>
   );
