@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { CheckCircle } from 'lucide-react';
 
-// Moved phone number to a constant for better maintainability
 const WHATSAPP_PHONE_NUMBER = "5581995016183";
 
 const CheckoutPage: React.FC = () => {
@@ -11,47 +11,47 @@ const CheckoutPage: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState('card');
-  
+  const [orderSent, setOrderSent] = useState(false);
+
   const subtotal = cartItems.reduce((total, item) => total + (item.promoPrice || item.price) * item.quantity, 0);
   const deliveryFee = 5.00;
 
   const formatCurrency = (value: number) => {
     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
-  
+
   if (!user) {
     return (
-        <div className="container mx-auto px-4 py-12 text-center">
-            <h1 className="text-3xl font-bold mb-4">Acesso Negado</h1>
-            <p className="text-gray-600 mb-8">Você precisa fazer login para finalizar seu pedido.</p>
-            <Link to="/login" className="bg-primary text-white font-bold py-3 px-6 rounded-full hover:bg-primary-dark transition-colors">
-            Ir para Login
-            </Link>
+      <div className="container mx-auto px-4 py-12 text-center">
+        <h1 className="text-3xl font-bold mb-4">Acesso Negado</h1>
+        <p className="text-gray-600 mb-8">Você precisa fazer login para finalizar seu pedido.</p>
+        <Link to="/login" className="bg-primary text-white font-bold py-3 px-6 rounded-full hover:bg-primary-dark transition-colors">
+          Ir para Login
+        </Link>
       </div>
-    )
+    );
   }
 
   const handleSendToWhatsapp = (e: React.FormEvent) => {
     e.preventDefault();
     if (cartItems.length === 0) {
-        alert("Seu carrinho está vazio!");
-        navigate('/');
-        return;
+      alert("Seu carrinho está vazio!");
+      navigate('/');
+      return;
     }
     if (!user.address) {
-        alert("Endereço de entrega não encontrado! Por favor, atualize seu cadastro.");
-        // In a real app, you might redirect to a profile page.
-        return;
+      alert("Endereço de entrega não encontrado! Por favor, atualize seu cadastro.");
+      return;
     }
 
-    const itemsList = cartItems.map(item => 
-        `*${item.quantity}x* ${item.name} ........ ${formatCurrency((item.promoPrice || item.price) * item.quantity)}`
+    const itemsList = cartItems.map(item =>
+      `*${item.quantity}x* ${item.name} ........ ${formatCurrency((item.promoPrice || item.price) * item.quantity)}`
     ).join('\n');
 
     const paymentMethodText = {
-        card: '💳 Cartão de Crédito/Débito',
-        pix: '✨ PIX',
-        cash: '💵 Dinheiro'
+      card: '💳 Cartão de Crédito/Débito',
+      pix: '✨ PIX',
+      cash: '💵 Dinheiro'
     }[paymentMethod] || 'Não especificado';
 
     const address = user.address;
@@ -88,38 +88,54 @@ ${paymentMethodText}
 
 Agradeço e aguardo a confirmação! 😊
     `.trim().replace(/^\s+/gm, '');
-    
+
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`;
 
     window.open(whatsappUrl, '_blank');
-    
+    setOrderSent(true);
+
     setTimeout(() => {
-        clearCart();
-        navigate('/');
-    }, 500);
+      clearCart();
+      navigate('/');
+    }, 5000); // 5 seconds delay
   };
 
+  if (orderSent) {
+    return (
+      <div className="container mx-auto px-4 py-12 text-center flex flex-col items-center">
+        <CheckCircle className="w-16 h-16 text-green-500 mb-4" />
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">Pedido Pronto para Envio!</h1>
+        <p className="text-gray-600 mb-6 max-w-lg">
+          Abrimos o WhatsApp em uma nova aba com sua mensagem de pedido. Por favor, verifique e envie a mensagem para finalizar.
+        </p>
+        <p className="text-gray-500 text-sm mb-8">
+          Seu carrinho será limpo e você será redirecionado para a página inicial em breve.
+        </p>
+        <Link to="/" className="bg-primary text-white font-bold py-3 px-6 rounded-full hover:bg-primary-dark transition-colors">
+          Voltar para o Início
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 text-gray-800">Finalizar Pedido</h1>
       <form onSubmit={handleSendToWhatsapp} className="flex flex-col lg:flex-row gap-8 items-start">
-        
-        {/* Form Section */}
         <div className="w-full lg:w-2/3 bg-white rounded-lg shadow-lg p-6 space-y-6 order-last lg:order-first">
           <div>
             <h2 className="text-xl font-bold mb-4">Endereço de Entrega</h2>
             {user.address ? (
-                <div className="bg-gray-100 p-4 rounded-md text-gray-700 space-y-1">
-                    <p><strong>Rua:</strong> {user.address.rua}, {user.address.numero}</p>
-                    <p><strong>Bairro:</strong> {user.address.bairro}</p>
-                    <p><strong>CEP:</strong> {user.address.cep}</p>
-                    {user.address.complemento && <p><strong>Complemento:</strong> {user.address.complemento}</p>}
-                    {user.address.referencia && <p><strong>Referência:</strong> {user.address.referencia}</p>}
-                </div>
+              <div className="bg-gray-100 p-4 rounded-md text-gray-700 space-y-1">
+                <p><strong>Rua:</strong> {user.address.rua}, {user.address.numero}</p>
+                <p><strong>Bairro:</strong> {user.address.bairro}</p>
+                <p><strong>CEP:</strong> {user.address.cep}</p>
+                {user.address.complemento && <p><strong>Complemento:</strong> {user.address.complemento}</p>}
+                {user.address.referencia && <p><strong>Referência:</strong> {user.address.referencia}</p>}
+              </div>
             ) : (
-                <p className="text-red-500">Nenhum endereço cadastrado.</p>
+              <p className="text-red-500">Nenhum endereço cadastrado.</p>
             )}
           </div>
           <div>
@@ -146,37 +162,35 @@ Agradeço e aguardo a confirmação! 😊
             </div>
           )}
         </div>
-        
-        {/* Summary Section */}
         <div className="w-full lg:w-1/3">
-            <div className="bg-white rounded-lg shadow-lg p-6 h-fit sticky top-24">
+          <div className="bg-white rounded-lg shadow-lg p-6 h-fit sticky top-24">
             <h2 className="text-xl font-bold mb-4 border-b pb-4">Resumo Final</h2>
             <div className="space-y-2 mb-4 max-h-48 overflow-y-auto pr-2">
-                {cartItems.map(item => (
-                    <div key={item.id} className="flex justify-between text-sm">
-                        <span className="flex-1 truncate pr-2">{item.quantity}x {item.name}</span>
-                        <span className="flex-shrink-0">{formatCurrency((item.promoPrice || item.price) * item.quantity)}</span>
-                    </div>
-                ))}
+              {cartItems.map(item => (
+                <div key={item.id} className="flex justify-between text-sm">
+                  <span className="flex-1 truncate pr-2">{item.quantity}x {item.name}</span>
+                  <span className="flex-shrink-0">{formatCurrency((item.promoPrice || item.price) * item.quantity)}</span>
+                </div>
+              ))}
             </div>
             <div className="space-y-3 mb-4 border-t pt-4">
-                <div className="flex justify-between">
+              <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span>{formatCurrency(subtotal)}</span>
-                </div>
-                <div className="flex justify-between">
+              </div>
+              <div className="flex justify-between">
                 <span>Taxa de entrega</span>
                 <span>{formatCurrency(deliveryFee)}</span>
-                </div>
+              </div>
             </div>
             <div className="flex justify-between font-bold text-xl border-t pt-4 mb-6">
-                <span>Total a pagar</span>
-                <span>{formatCurrency(getTotalPrice())}</span>
+              <span>Total a pagar</span>
+              <span>{formatCurrency(getTotalPrice())}</span>
             </div>
             <button type="submit" className="w-full bg-primary text-white font-bold py-3 rounded-full hover:bg-primary-dark transition-colors disabled:bg-gray-400" disabled={cartItems.length === 0}>
-                Enviar Pedido via WhatsApp
+              Enviar Pedido via WhatsApp
             </button>
-            </div>
+          </div>
         </div>
       </form>
     </div>
