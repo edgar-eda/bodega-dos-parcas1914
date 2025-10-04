@@ -18,7 +18,8 @@ const LoginPage: React.FC = () => {
         setError(loginError.message === 'Invalid login credentials' ? 'Email ou senha inválidos.' : 'Ocorreu um erro. Tente novamente.');
       }
       // A navegação é tratada pelo listener no App.tsx
-    } catch (err)      setError('Ocorreu um erro ao tentar fazer login.');
+    } catch (err) {
+      setError('Ocorreu um erro ao tentar fazer login.');
     }
   };
 
