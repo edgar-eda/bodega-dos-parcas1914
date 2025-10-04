@@ -20,7 +20,8 @@ const Header: React.FC = () => {
     <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
       <div className="container mx-auto px-2 sm:px-4 py-3 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
-          <span className="text-lg sm:text-2xl font-extrabold text-emerald-900 tracking-tight">
+          <img src="/logo.png" alt="Bodega dos Parças Logo" className="h-8 sm:h-10 w-auto" />
+          <span className="hidden sm:block text-lg sm:text-2xl font-extrabold text-primary tracking-tight">
             Bodega dos Parças
           </span>
         </Link>
