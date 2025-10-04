@@ -36,6 +36,7 @@ const RegisterPage: React.FC = () => {
         return;
     }
     try {
+      // Remove os caracteres da máscara antes de enviar
       const cleanCpf = cpf.replace(/[^\d]/g, '');
       const cleanCelular = celular.replace(/[^\d]/g, '');
       const cleanAddress = {
@@ -83,20 +84,41 @@ const RegisterPage: React.FC = () => {
               <input name="name" type="text" required value={name} onChange={e => setName(e.target.value)}
                 className={inputClasses}
                 placeholder="Nome completo" />
+              
               <InputMask
                 mask="999.999.999-99"
                 value={cpf}
                 onChange={e => setCpf(e.target.value)}
               >
-                {(inputProps: any) => <input {...inputProps} name="cpf" type="text" required className={inputClasses} placeholder="CPF" />}
+                {(inputProps: any) => 
+                  <input 
+                    {...inputProps} 
+                    type="text" 
+                    inputMode="numeric" 
+                    required 
+                    className={inputClasses} 
+                    placeholder="CPF" 
+                  />
+                }
               </InputMask>
+
               <InputMask
                 mask="(99) 99999-9999"
                 value={celular}
                 onChange={e => setCelular(e.target.value)}
               >
-                {(inputProps: any) => <input {...inputProps} name="celular" type="text" required className={inputClasses} placeholder="Celular com DDD" />}
+                {(inputProps: any) => 
+                  <input 
+                    {...inputProps} 
+                    type="text" 
+                    inputMode="numeric" 
+                    required 
+                    className={inputClasses} 
+                    placeholder="Celular com DDD" 
+                  />
+                }
               </InputMask>
+
               <input name="email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)}
                 className={inputClasses}
                 placeholder="Email" />
@@ -111,8 +133,19 @@ const RegisterPage: React.FC = () => {
                 mask="99999-999"
                 value={address.cep}
                 onChange={handleAddressChange}
+                name="cep"
               >
-                {(inputProps: any) => <input {...inputProps} type="text" placeholder="CEP" name="cep" required className={inputClasses} />}
+                {(inputProps: any) => 
+                  <input 
+                    {...inputProps} 
+                    type="text" 
+                    inputMode="numeric" 
+                    placeholder="CEP" 
+                    name="cep" 
+                    required 
+                    className={inputClasses} 
+                  />
+                }
               </InputMask>
               <input type="text" placeholder="Rua / Avenida" name="rua" value={address.rua} onChange={handleAddressChange} required className={inputClasses} />
               <div className="grid grid-cols-2 gap-4">
