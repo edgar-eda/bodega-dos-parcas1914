@@ -99,7 +99,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
     onFormSubmit();
   };
 
-  const inputClasses = "bg-primary p-2 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-red focus:outline-none placeholder-gray-400 text-accent-cream";
+  const inputClasses = "bg-primary-dark p-2 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-red focus:outline-none placeholder-gray-400 text-accent-cream";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">

@@ -32,7 +32,7 @@ const Header: React.FC = () => {
             <input
               type="text"
               placeholder="Buscar..."
-              className="w-full bg-primary border-2 border-green-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-accent-red transition-colors text-sm sm:text-base text-accent-cream placeholder-gray-400"
+              className="w-full bg-primary-dark border-2 border-green-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-accent-red transition-colors text-sm sm:text-base text-accent-cream placeholder-gray-400"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />

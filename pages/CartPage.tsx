@@ -130,7 +130,7 @@ const CartPage: React.FC = () => {
                       value={couponCode}
                       onChange={(e) => setCouponCode(e.target.value)}
                       placeholder="Cupom de desconto"
-                      className="flex-grow bg-primary border border-green-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent-red"
+                      className="flex-grow bg-primary-dark border border-green-700 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent-red"
                     />
                     <button onClick={handleApplyCoupon} className="bg-accent-yellow text-primary font-bold px-4 rounded-md hover:bg-yellow-500 transition-colors text-sm">Aplicar</button>
                   </div>
