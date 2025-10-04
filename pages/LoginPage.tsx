@@ -15,73 +15,91 @@ const LoginPage: React.FC = () => {
     try {
       const { error: loginError } = await login(email, password);
       if (loginError) {
-        setError('Email ou senha inválidos.');
+        setError(loginError.message === 'Invalid login credentials' ? 'Email ou senha inválidos.' : 'Ocorreu um erro. Tente novamente.');
       }
-      // A navegação agora é tratada pelo listener no App.tsx
-      // que redireciona com base no papel do usuário.
+      // A navegação é tratada pelo listener no App.tsx
     } catch (err) {
       setError('Ocorreu um erro ao tentar fazer login.');
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-full py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-primary-dark p-10 rounded-xl shadow-lg">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-accent-cream">
+    <div className="min-h-full bg-primary flex items-center justify-center p-4">
+      <div className="max-w-4xl w-full mx-auto bg-primary-dark rounded-2xl shadow-2xl overflow-hidden md:grid md:grid-cols-2">
+        
+        {/* Lado Esquerdo - Branding */}
+        <div className="hidden md:flex flex-col items-center justify-center p-12 bg-primary text-center">
+          <img src="/logo.png" alt="Bodega dos Parças Logo" className="h-24 w-auto mb-6" />
+          <h1 className="text-3xl font-extrabold text-accent-yellow tracking-tight mb-2">
+            Bem-vindo de volta!
+          </h1>
+          <p className="text-gray-300">
+            Sua bebida gelada, rápida e no precinho está a apenas um login de distância.
+          </p>
+        </div>
+
+        {/* Lado Direito - Formulário */}
+        <div className="p-8 md:p-12">
+          <div className="flex justify-center md:hidden mb-6">
+             <img src="/logo.png" alt="Bodega dos Parças Logo" className="h-20 w-auto" />
+          </div>
+          <h2 className="text-center text-3xl font-bold text-accent-cream mb-2">
             Acesse sua conta
           </h2>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
+          <p className="text-center text-gray-400 mb-8">
+            Faça login para continuar comprando.
+          </p>
+          
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email-address" className="sr-only">Email</label>
+              <label htmlFor="email-address" className="text-sm font-medium text-gray-300 mb-1 block">Email</label>
               <input
                 id="email-address"
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
-                className="bg-primary appearance-none rounded-none relative block w-full px-3 py-2 border border-green-700 placeholder-gray-400 text-accent-cream rounded-t-md focus:outline-none focus:ring-accent-yellow focus:border-accent-yellow focus:z-10 sm:text-sm"
-                placeholder="Email"
+                className="bg-primary appearance-none relative block w-full px-4 py-3 border border-green-700 placeholder-gray-500 text-accent-cream rounded-md focus:outline-none focus:ring-2 focus:ring-accent-yellow focus:border-accent-yellow sm:text-sm"
+                placeholder="seuemail@exemplo.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="password"className="sr-only">Senha</label>
+              <label htmlFor="password"className="text-sm font-medium text-gray-300 mb-1 block">Senha</label>
               <input
                 id="password"
                 name="password"
                 type="password"
                 autoComplete="current-password"
                 required
-                className="bg-primary appearance-none rounded-none relative block w-full px-3 py-2 border border-green-700 placeholder-gray-400 text-accent-cream rounded-b-md focus:outline-none focus:ring-accent-yellow focus:border-accent-yellow focus:z-10 sm:text-sm"
-                placeholder="Senha"
+                className="bg-primary appearance-none relative block w-full px-4 py-3 border border-green-700 placeholder-gray-500 text-accent-cream rounded-md focus:outline-none focus:ring-2 focus:ring-accent-yellow focus:border-accent-yellow sm:text-sm"
+                placeholder="Sua senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-          </div>
 
-          {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+            {error && <p className="text-red-400 text-sm text-center">{error}</p>}
 
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-bold rounded-md text-primary bg-accent-yellow hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-yellow"
-            >
-              Entrar
-            </button>
+            <div>
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-base font-bold rounded-md text-primary bg-accent-yellow hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-dark focus:ring-accent-yellow transition-colors duration-300"
+              >
+                Entrar
+              </button>
+            </div>
+          </form>
+          
+          <div className="text-sm text-center mt-8">
+            <p className="text-gray-400">
+              Não tem uma conta?{' '}
+              <Link to="/register" className="font-medium text-accent-yellow hover:underline">
+                Cadastre-se
+              </Link>
+            </p>
           </div>
-        </form>
-        <div className="text-sm text-center">
-          <p>
-            Não tem uma conta?{' '}
-            <Link to="/register" className="font-medium text-accent-yellow hover:text-yellow-500">
-              Cadastre-se
-            </Link>
-          </p>
         </div>
       </div>
     </div>
