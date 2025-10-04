@@ -23,7 +23,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-2 sm:px-4 py-3 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
           <img src="/logo.png" alt="Bodega dos Parças Logo" className="h-8 sm:h-10 w-auto" />
-          <span className="hidden sm:block text-lg sm:text-2xl font-extrabold text-accent-yellow tracking-tight">
+          <span className="hidden sm:block text-lg sm:text-2xl font-extrabold text-accent-cream tracking-tight">
             Bodega dos Parças
           </span>
         </Link>
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
             <input
               type="text"
               placeholder="Buscar..."
-              className="w-full bg-primary border-2 border-green-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-accent-yellow transition-colors text-sm sm:text-base text-accent-cream placeholder-gray-400"
+              className="w-full bg-primary border-2 border-green-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-accent-red transition-colors text-sm sm:text-base text-accent-cream placeholder-gray-400"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -44,16 +44,16 @@ const Header: React.FC = () => {
             <div className="flex items-center gap-2 sm:gap-4 text-sm">
               <span className="hidden md:inline text-accent-cream">Olá, {user.name.split(' ')[0]}</span>
               {user.role === 'admin' && (
-                <Link to="/admin" className="font-semibold text-accent-yellow hover:underline whitespace-nowrap">
+                <Link to="/admin" className="font-semibold text-accent-red hover:underline whitespace-nowrap">
                   Admin
                 </Link>
               )}
-              <button onClick={handleLogout} className="font-semibold text-accent-cream hover:text-accent-yellow">
+              <button onClick={handleLogout} className="font-semibold text-accent-cream hover:text-accent-red">
                 Sair
               </button>
             </div>
           ) : (
-            <Link to="/login" className="bg-accent-yellow text-primary font-bold py-2 px-3 rounded-full hover:bg-yellow-500 transition-colors text-sm whitespace-nowrap">
+            <Link to="/login" className="bg-accent-red text-accent-cream font-bold py-2 px-3 rounded-full hover:bg-red-700 transition-colors text-sm whitespace-nowrap">
               Entrar
             </Link>
           )}

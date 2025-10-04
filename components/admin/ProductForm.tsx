@@ -99,7 +99,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
     onFormSubmit();
   };
 
-  const inputClasses = "bg-primary p-2 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-yellow focus:outline-none placeholder-gray-400 text-accent-cream";
+  const inputClasses = "bg-primary p-2 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-red focus:outline-none placeholder-gray-400 text-accent-cream";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -127,19 +127,19 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
             </div>
           ))}
         </div>
-        <button type="button" onClick={addSpecField} className="mt-2 flex items-center gap-2 text-sm text-accent-yellow font-semibold hover:underline">
+        <button type="button" onClick={addSpecField} className="mt-2 flex items-center gap-2 text-sm text-accent-red font-semibold hover:underline">
           <PlusIcon className="w-4 h-4" /> Adicionar Especificação
         </button>
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-1">Imagem do Produto</label>
-        <input type="file" accept="image/*" onChange={handleImageChange} className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent-yellow/10 file:text-accent-yellow hover:file:bg-accent-yellow/20"/>
+        <input type="file" accept="image/*" onChange={handleImageChange} className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent-red/10 file:text-accent-red hover:file:bg-accent-red/20"/>
         {imagePreview && <img src={imagePreview} alt="Preview" className="mt-4 w-32 h-32 object-cover rounded-md" />}
       </div>
       <div className="flex justify-end gap-4 pt-4">
         <button type="button" onClick={onFormSubmit} className="bg-gray-600 text-gray-100 font-bold py-2 px-4 rounded-md hover:bg-gray-500">Cancelar</button>
-        <button type="submit" className="bg-accent-yellow text-primary font-bold py-2 px-4 rounded-md hover:bg-yellow-500">Salvar Produto</button>
+        <button type="submit" className="bg-accent-red text-accent-cream font-bold py-2 px-4 rounded-md hover:bg-red-700">Salvar Produto</button>
       </div>
     </form>
   );

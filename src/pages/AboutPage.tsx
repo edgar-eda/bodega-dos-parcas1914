@@ -29,7 +29,7 @@ const AboutPage: React.FC = () => {
             Então, da próxima vez que o copo esvaziar, lembre-se: a Bodega dos Parças está a apenas um clique de distância para salvar a sua celebração.
           </p>
 
-          <p className="font-bold text-center text-accent-yellow text-xl pt-4">
+          <p className="font-bold text-center text-accent-red text-xl pt-4">
             Um brinde aos bons momentos! 🍻
           </p>
         </div>

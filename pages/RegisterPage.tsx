@@ -45,7 +45,7 @@ const RegisterPage: React.FC = () => {
     }
   };
   
-  const inputClasses = "bg-primary p-3 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-yellow focus:outline-none placeholder-gray-400 text-accent-cream";
+  const inputClasses = "bg-primary p-3 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-red focus:outline-none placeholder-gray-400 text-accent-cream";
 
   return (
     <div className="flex items-center justify-center min-h-full py-12 px-4 sm:px-6 lg:px-8">
@@ -90,7 +90,7 @@ const RegisterPage: React.FC = () => {
             {error && <p className="text-red-400 text-sm text-center pt-4">{error}</p>}
 
             <div>
-              <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-bold rounded-md text-primary bg-accent-yellow hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-yellow">
+              <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-bold rounded-md text-accent-cream bg-accent-red hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-red">
                 Cadastrar
               </button>
             </div>
@@ -99,7 +99,7 @@ const RegisterPage: React.FC = () => {
         <div className="text-sm text-center">
             <p>
                 Já tem uma conta?{' '}
-                <Link to="/login" className="font-medium text-accent-yellow hover:text-yellow-500">
+                <Link to="/login" className="font-medium text-accent-red hover:text-red-700">
                 Faça login
                 </Link>
             </p>

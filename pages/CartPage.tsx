@@ -21,7 +21,7 @@ const CartPage: React.FC = () => {
         <div className="container mx-auto px-4 py-12 text-center">
             <h1 className="text-2xl sm:text-3xl font-bold mb-4">Acesso Negado</h1>
             <p className="text-gray-400 mb-8">Você precisa fazer login para ver seu carrinho.</p>
-            <Link to="/login" className="bg-accent-yellow text-primary font-bold py-3 px-6 rounded-full hover:bg-yellow-500 transition-colors">
+            <Link to="/login" className="bg-accent-red text-accent-cream font-bold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">
             Ir para Login
             </Link>
       </div>
@@ -33,7 +33,7 @@ const CartPage: React.FC = () => {
       <div className="container mx-auto px-4 py-12 text-center">
         <h1 className="text-2xl sm:text-3xl font-bold mb-4">Seu carrinho está vazio</h1>
         <p className="text-gray-400 mb-8">Que tal adicionar alguns produtos?</p>
-        <Link to="/" className="bg-accent-yellow text-primary font-bold py-3 px-6 rounded-full hover:bg-yellow-500 transition-colors">
+        <Link to="/" className="bg-accent-red text-accent-cream font-bold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">
           Continuar comprando
         </Link>
       </div>
@@ -58,11 +58,11 @@ const CartPage: React.FC = () => {
                   </div>
                   <div className="flex items-center justify-between mt-2 sm:mt-0">
                     <div className="flex items-center border border-green-700 rounded-full">
-                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-2 text-gray-400 hover:text-accent-yellow"><MinusIcon className="w-5 h-5"/></button>
+                      <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-2 text-gray-400 hover:text-accent-red"><MinusIcon className="w-5 h-5"/></button>
                       <span className="px-3 font-bold">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="p-2 text-gray-400 hover:text-accent-yellow"><PlusIcon className="w-5 h-5"/></button>
+                      <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="p-2 text-gray-400 hover:text-accent-red"><PlusIcon className="w-5 h-5"/></button>
                     </div>
-                    <p className="font-bold text-lg text-accent-yellow">{formatCurrency((item.promoPrice || item.price) * item.quantity)}</p>
+                    <p className="font-bold text-lg text-accent-red">{formatCurrency((item.promoPrice || item.price) * item.quantity)}</p>
                     <button onClick={() => removeFromCart(item.id)} className="text-gray-500 hover:text-accent-red p-2"><TrashIcon className="w-6 h-6"/></button>
                   </div>
                 </div>
@@ -87,11 +87,11 @@ const CartPage: React.FC = () => {
             </div>
             <div className="flex justify-between font-bold text-xl border-t border-green-700 pt-4 mb-6">
               <span>Total</span>
-              <span className="text-accent-yellow">{formatCurrency(getTotalPrice())}</span>
+              <span className="text-accent-red">{formatCurrency(getTotalPrice())}</span>
             </div>
             <button 
               onClick={() => navigate('/checkout')}
-              className="w-full bg-accent-yellow text-primary font-bold py-3 rounded-full hover:bg-yellow-500 transition-colors">
+              className="w-full bg-accent-red text-accent-cream font-bold py-3 rounded-full hover:bg-red-700 transition-colors">
               Finalizar Pedido
             </button>
           </div>

@@ -19,7 +19,7 @@ const ProductDetailPage: React.FC = () => {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-bold">Produto não encontrado</h2>
-        <Link to="/" className="text-accent-yellow hover:underline mt-4 inline-block">Voltar para o início</Link>
+        <Link to="/" className="text-accent-red hover:underline mt-4 inline-block">Voltar para o início</Link>
       </div>
     );
   }
@@ -45,7 +45,7 @@ const ProductDetailPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-300 hover:text-accent-yellow mb-6 font-semibold">
+      <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-300 hover:text-accent-red mb-6 font-semibold">
         <ChevronLeftIcon className="w-5 h-5" />
         Voltar
       </button>
@@ -55,7 +55,7 @@ const ProductDetailPage: React.FC = () => {
             <img src={product.imageUrl} alt={product.name} className="w-full h-auto rounded-lg object-cover aspect-square" />
           </div>
           <div className="flex flex-col justify-center">
-            <span className="text-sm font-semibold text-accent-yellow mb-2">{product.category}</span>
+            <span className="text-sm font-semibold text-accent-red mb-2">{product.category}</span>
             <h1 className="text-2xl sm:text-3xl font-bold text-accent-cream mb-4">{product.name}</h1>
             <p className="text-gray-400 mb-6">{product.description}</p>
             
@@ -76,7 +76,7 @@ const ProductDetailPage: React.FC = () => {
             <div className="mb-6">
               {product.promoPrice ? (
                 <div className="flex items-baseline gap-3">
-                  <p className="text-3xl font-bold text-accent-yellow">{formatCurrency(product.promoPrice)}</p>
+                  <p className="text-3xl font-bold text-accent-red">{formatCurrency(product.promoPrice)}</p>
                   <p className="text-xl text-gray-500 line-through">{formatCurrency(product.price)}</p>
                 </div>
               ) : (
@@ -87,15 +87,15 @@ const ProductDetailPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
               <label className="font-semibold whitespace-nowrap">Quantidade:</label>
               <div className="flex items-center border border-green-700 rounded-full">
-                <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="p-2 sm:p-3 text-gray-400 hover:text-accent-yellow"><MinusIcon className="w-5 h-5"/></button>
+                <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="p-2 sm:p-3 text-gray-400 hover:text-accent-red"><MinusIcon className="w-5 h-5"/></button>
                 <span className="px-4 font-bold text-lg">{quantity}</span>
-                <button onClick={() => setQuantity(q => q + 1)} className="p-2 sm:p-3 text-gray-400 hover:text-accent-yellow"><PlusIcon className="w-5 h-5"/></button>
+                <button onClick={() => setQuantity(q => q + 1)} className="p-2 sm:p-3 text-gray-400 hover:text-accent-red"><PlusIcon className="w-5 h-5"/></button>
               </div>
             </div>
 
             <button
                 onClick={handleAddToCart}
-                className={`w-full flex items-center justify-center py-3 px-6 rounded-full font-bold text-lg transition-all duration-300 ${isAdded ? 'bg-emerald-500 text-white' : 'bg-accent-yellow text-primary hover:bg-yellow-500'}`}
+                className={`w-full flex items-center justify-center py-3 px-6 rounded-full font-bold text-lg transition-all duration-300 ${isAdded ? 'bg-emerald-500 text-white' : 'bg-accent-red text-accent-cream hover:bg-red-700'}`}
             >
               {isAdded ? (
                 <>

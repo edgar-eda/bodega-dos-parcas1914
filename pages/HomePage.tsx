@@ -74,7 +74,7 @@ const HomePage: React.FC = () => {
 
   const pageTitle = () => {
     if (searchTerm) {
-      return <>Buscando por "<span className="text-accent-yellow">{searchTerm}</span>"</>;
+      return <>Buscando por "<span className="text-accent-red">{searchTerm}</span>"</>;
     }
     if (showOnlyOffers) {
       return "Ofertas Especiais";

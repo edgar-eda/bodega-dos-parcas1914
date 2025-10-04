@@ -39,7 +39,7 @@ const CheckoutPage: React.FC = () => {
       <div className="container mx-auto px-4 py-12 text-center">
         <h1 className="text-3xl font-bold mb-4">Acesso Negado</h1>
         <p className="text-gray-400 mb-8">Você precisa fazer login para finalizar seu pedido.</p>
-        <Link to="/login" className="bg-accent-yellow text-primary font-bold py-3 px-6 rounded-full hover:bg-yellow-500 transition-colors">
+        <Link to="/login" className="bg-accent-red text-accent-cream font-bold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">
           Ir para Login
         </Link>
       </div>
@@ -127,7 +127,7 @@ Agradeço e aguardo a confirmação! 😊
         <p className="text-gray-500 text-sm mb-8">
           Seu carrinho será limpo e você será redirecionado para a página inicial em breve.
         </p>
-        <Link to="/" className="bg-accent-yellow text-primary font-bold py-3 px-6 rounded-full hover:bg-yellow-500 transition-colors">
+        <Link to="/" className="bg-accent-red text-accent-cream font-bold py-3 px-6 rounded-full hover:bg-red-700 transition-colors">
           Voltar para o Início
         </Link>
       </div>
@@ -142,7 +142,7 @@ Agradeço e aguardo a confirmação! 😊
           <div>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">Endereço de Entrega</h2>
-              <button type="button" onClick={() => setIsAddressModalOpen(true)} className="flex items-center gap-2 text-sm text-accent-yellow font-semibold hover:underline">
+              <button type="button" onClick={() => setIsAddressModalOpen(true)} className="flex items-center gap-2 text-sm text-accent-red font-semibold hover:underline">
                 <EditIcon className="w-4 h-4" />
                 {user.address ? 'Editar' : 'Adicionar'}
               </button>
@@ -156,7 +156,7 @@ Agradeço e aguardo a confirmação! 😊
                 {user.address.referencia && <p><strong>Referência:</strong> {user.address.referencia}</p>}
               </div>
             ) : (
-              <div className="bg-yellow-900/50 border-l-4 border-yellow-500 text-yellow-300 p-4" role="alert">
+              <div className="bg-red-900/50 border-l-4 border-red-500 text-red-300 p-4" role="alert">
                 <p className="font-bold">Nenhum endereço cadastrado.</p>
                 <p>Por favor, adicione um endereço para continuar.</p>
               </div>
@@ -165,16 +165,16 @@ Agradeço e aguardo a confirmação! 😊
           <div>
             <h2 className="text-xl font-bold mb-4">Forma de Pagamento</h2>
             <div className="space-y-2">
-              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'card' ? 'border-accent-yellow bg-green-900/50 ring-2 ring-accent-yellow' : 'border-green-700'}`}>
-                <input type="radio" name="payment" value="card" checked={paymentMethod === 'card'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3 form-radio bg-primary border-green-600 text-accent-yellow focus:ring-accent-yellow" />
+              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'card' ? 'border-accent-red bg-green-900/50 ring-2 ring-accent-red' : 'border-green-700'}`}>
+                <input type="radio" name="payment" value="card" checked={paymentMethod === 'card'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3 form-radio bg-primary border-green-600 text-accent-red focus:ring-accent-red" />
                 Cartão de Crédito/Débito
               </label>
-              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'pix' ? 'border-accent-yellow bg-green-900/50 ring-2 ring-accent-yellow' : 'border-green-700'}`}>
-                <input type="radio" name="payment" value="pix" checked={paymentMethod === 'pix'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3 form-radio bg-primary border-green-600 text-accent-yellow focus:ring-accent-yellow" />
+              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'pix' ? 'border-accent-red bg-green-900/50 ring-2 ring-accent-red' : 'border-green-700'}`}>
+                <input type="radio" name="payment" value="pix" checked={paymentMethod === 'pix'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3 form-radio bg-primary border-green-600 text-accent-red focus:ring-accent-red" />
                 PIX
               </label>
-              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'cash' ? 'border-accent-yellow bg-green-900/50 ring-2 ring-accent-yellow' : 'border-green-700'}`}>
-                <input type="radio" name="payment" value="cash" checked={paymentMethod === 'cash'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3 form-radio bg-primary border-green-600 text-accent-yellow focus:ring-accent-yellow" />
+              <label className={`flex items-center p-4 border rounded-md cursor-pointer transition-all ${paymentMethod === 'cash' ? 'border-accent-red bg-green-900/50 ring-2 ring-accent-red' : 'border-green-700'}`}>
+                <input type="radio" name="payment" value="cash" checked={paymentMethod === 'cash'} onChange={e => setPaymentMethod(e.target.value)} className="mr-3 form-radio bg-primary border-green-600 text-accent-red focus:ring-accent-red" />
                 Dinheiro
               </label>
             </div>
@@ -209,9 +209,9 @@ Agradeço e aguardo a confirmação! 😊
             </div>
             <div className="flex justify-between font-bold text-xl border-t border-green-700 pt-4 mb-6">
               <span>Total a pagar</span>
-              <span className="text-accent-yellow">{formatCurrency(getTotalPrice())}</span>
+              <span className="text-accent-red">{formatCurrency(getTotalPrice())}</span>
             </div>
-            <button type="submit" className="w-full bg-accent-yellow text-primary font-bold py-3 rounded-full hover:bg-yellow-500 transition-colors disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed" disabled={cartItems.length === 0 || !user.address}>
+            <button type="submit" className="w-full bg-accent-red text-accent-cream font-bold py-3 rounded-full hover:bg-red-700 transition-colors disabled:bg-gray-600 disabled:text-gray-400 disabled:cursor-not-allowed" disabled={cartItems.length === 0 || !user.address}>
               Enviar Pedido via WhatsApp
             </button>
           </div>

@@ -10,7 +10,7 @@ const AdminPage: React.FC = () => {
   const tabButtonClasses = (tabName: AdminTab) => 
     `px-4 py-2 text-sm font-semibold rounded-md transition-colors flex-shrink-0 ${
         activeTab === tabName 
-        ? 'bg-accent-yellow text-primary' 
+        ? 'bg-accent-red text-accent-cream' 
         : 'text-gray-300 hover:bg-primary-dark'
     }`;
 

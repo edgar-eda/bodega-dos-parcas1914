@@ -39,7 +39,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onSubmit, onC
     onSubmit(address);
   };
 
-  const inputClasses = "bg-primary p-3 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-yellow focus:outline-none placeholder-gray-400 text-accent-cream";
+  const inputClasses = "bg-primary p-3 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-red focus:outline-none placeholder-gray-400 text-accent-cream";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -54,7 +54,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ initialAddress, onSubmit, onC
       
       <div className="flex justify-end gap-4 pt-4">
         <button type="button" onClick={onCancel} className="bg-gray-600 text-gray-100 font-bold py-2 px-4 rounded-md hover:bg-gray-500">Cancelar</button>
-        <button type="submit" className="bg-accent-yellow text-primary font-bold py-2 px-4 rounded-md hover:bg-yellow-500">Salvar Endereço</button>
+        <button type="submit" className="bg-accent-red text-accent-cream font-bold py-2 px-4 rounded-md hover:bg-red-700">Salvar Endereço</button>
       </div>
     </form>
   );

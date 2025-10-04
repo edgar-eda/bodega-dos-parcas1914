@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div>
             {product.promoPrice ? (
               <>
-                <p className="text-base sm:text-lg font-bold text-accent-yellow">{formatCurrency(product.promoPrice)}</p>
+                <p className="text-base sm:text-lg font-bold text-accent-red">{formatCurrency(product.promoPrice)}</p>
                 <p className="text-xs sm:text-sm text-gray-500 line-through">{formatCurrency(product.price)}</p>
               </>
             ) : (
@@ -59,7 +59,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
           <button
             onClick={handleAddToCart}
-            className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full font-bold transition-all duration-300 ${isAdded ? 'bg-emerald-500 text-white' : 'bg-accent-yellow hover:bg-yellow-500 text-primary'}`}
+            className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full font-bold transition-all duration-300 ${isAdded ? 'bg-emerald-500 text-white' : 'bg-accent-red hover:bg-red-700 text-accent-cream'}`}
             aria-label={isAdded ? "Adicionado" : "Adicionar ao carrinho"}
           >
             {isAdded ? <CheckIcon className="w-5 h-5 sm:w-6 sm:h-6" /> : <PlusIcon className="w-5 h-5 sm:w-6 sm:h-6" />}
