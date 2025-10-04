@@ -42,42 +42,48 @@ const CheckoutPage: React.FC = () => {
     }
 
     const itemsList = cartItems.map(item => 
-        `- ${item.quantity}x ${item.name} - ${formatCurrency((item.promoPrice || item.price) * item.quantity)}`
+        `*${item.quantity}x* ${item.name} ........ ${formatCurrency((item.promoPrice || item.price) * item.quantity)}`
     ).join('\n');
 
     const paymentMethodText = {
-        card: 'Cartão de Crédito/Débito',
-        pix: 'PIX',
-        cash: 'Dinheiro'
+        card: '💳 Cartão de Crédito/Débito',
+        pix: '✨ PIX',
+        cash: '💵 Dinheiro'
     }[paymentMethod] || 'Não especificado';
 
     const address = user.address;
     const addressText = `
-Rua: ${address.rua}, Nº ${address.numero}
-Bairro: ${address.bairro}
-CEP: ${address.cep}
-${address.complemento ? `Complemento: ${address.complemento}\n` : ''}${address.referencia ? `Referência: ${address.referencia}\n` : ''}`.trim();
+${address.rua}, Nº ${address.numero}
+${address.bairro} - CEP: ${address.cep}
+${address.complemento ? `Comp: ${address.complemento}\n` : ''}${address.referencia ? `Ref: ${address.referencia}\n` : ''}`.trim();
 
     const message = `
-Olá, Bodega dos Parças! 👋
+🧾 *=== COMPROVANTE DE PEDIDO ===* 🧾
 
-Gostaria de fazer o seguinte pedido:
+Olá, *Bodega dos Parças*!
+Gostaria de fazer um novo pedido.
 
-*Itens:*
-${itemsList}
-
-*Resumo:*
-Subtotal: ${formatCurrency(subtotal)}
-Taxa de entrega: ${formatCurrency(deliveryFee)}
-*Total a pagar: ${formatCurrency(getTotalPrice())}*
-
-*Endereço de Entrega:*
+🛵 *DETALHES DA ENTREGA*
+-----------------------------------
+*Endereço:*
 ${addressText}
 
-*Forma de Pagamento:*
+📦 *ITENS DO PEDIDO*
+-----------------------------------
+${itemsList}
+
+💰 *RESUMO FINANCEIRO*
+-----------------------------------
+Subtotal: ${formatCurrency(subtotal)}
+Taxa de Entrega: ${formatCurrency(deliveryFee)}
+-----------------------------------
+*TOTAL:* *${formatCurrency(getTotalPrice())}*
+
+💳 *FORMA DE PAGAMENTO*
+-----------------------------------
 ${paymentMethodText}
 
-Aguardando confirmação! 😊
+Agradeço e aguardo a confirmação! 😊
     `.trim().replace(/^\s+/gm, '');
     
     const encodedMessage = encodeURIComponent(message);
