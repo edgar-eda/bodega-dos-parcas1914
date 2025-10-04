@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SearchIcon } from './icons';
 import CartIcon from './CartIcon';
 import { useAuth } from '../context/AuthContext';
@@ -10,10 +10,12 @@ const Header: React.FC = () => {
   const { user, logout } = useAuth();
   const { clearCart } = useCart();
   const { searchTerm, setSearchTerm } = useProducts();
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logout();
     clearCart();
-    logout();
+    navigate('/');
   };
 
   return (
