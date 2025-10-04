@@ -16,6 +16,21 @@ const AdminPage: React.FC = () => {
         : 'text-gray-300 hover:bg-primary-dark'
     }`;
 
+  const renderActiveTab = () => {
+    switch (activeTab) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'products':
+        return <ProductList />;
+      case 'banners':
+        return <BannerList />;
+      case 'coupons':
+        return <CouponList />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl sm:text-3xl font-bold text-accent-cream mb-6">Painel do Administrador</h1>
@@ -50,10 +65,10 @@ const AdminPage: React.FC = () => {
       </div>
 
       <div className="bg-primary-dark p-4 sm:p-6 rounded-lg shadow-lg">
-        {activeTab === 'dashboard' && <Dashboard />}
-        {activeTab === 'products' && <ProductList />}
-        {activeTab === 'banners' && <BannerList />}
-        {activeTab === 'coupons' && <CouponList />}
+        {renderActiveTab()}
       </div>
     </div>
   );
+};
+
+export default AdminPage;
