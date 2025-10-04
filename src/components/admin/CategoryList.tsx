@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useCategories } from '../../context/CategoryContext';
 import { Category } from '../../../types';
-import Modal from '../../../components/Modal';
+import Modal from '../../components/Modal'; // Caminho corrigido
 import CategoryForm from './CategoryForm';
-import { EditIcon, PlusIcon, TrashIcon } from '../../../components/icons'; // Caminho corrigido
+import { EditIcon, PlusIcon, TrashIcon } from '../icons';
 import { AlertTriangle } from 'lucide-react';
 import { getLucideIcon } from '../../lib/lucide-icon-map';
 

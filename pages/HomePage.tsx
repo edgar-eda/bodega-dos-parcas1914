@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Banner from '../components/Banner';
-import CategoryNav from '../src/components/CategoryNav'; // Caminho corrigido
+import CategoryNav from '../components/CategoryNav';
 import ProductCard from '../components/ProductCard';
 import { useProducts } from '../context/ProductContext';
 import { Product } from '../types';
