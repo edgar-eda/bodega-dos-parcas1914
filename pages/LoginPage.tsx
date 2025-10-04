@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import logo from '../logo.png'; // Importando a logo
+import logo from '../src/logo.png'; // Corrigindo o caminho da logo
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');

@@ -5,7 +5,7 @@ import CartIcon from './CartIcon';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
-import logo from '../logo.png'; // Importando a logo
+import logo from '../src/logo.png'; // Corrigindo o caminho da logo
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();

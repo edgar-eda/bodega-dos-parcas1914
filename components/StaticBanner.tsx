@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../logo.png'; // Importando a logo
+import logo from '../src/logo.png'; // Corrigindo o caminho da logo
 
 interface StaticBannerProps {
   onSeeOffersClick: () => void;
