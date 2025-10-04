@@ -1,5 +1,6 @@
 import React from 'react';
-import { CATEGORIES } from '../constants';
+import { CATEGORY_DATA } from '../constants';
+import { List } from 'lucide-react';
 
 interface CategoryNavProps {
   selectedCategory: string;
@@ -7,12 +8,17 @@ interface CategoryNavProps {
 }
 
 const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCategory }) => {
-  const getButtonClasses = (category: string) => {
-    const baseClasses = "px-4 py-2 text-sm font-semibold rounded-full whitespace-nowrap transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2";
-    if (selectedCategory === category) {
-      return `${baseClasses} bg-primary text-white shadow-md`;
+  
+  const getButtonClasses = (isActive: boolean) => {
+    const baseClasses = `
+      flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full whitespace-nowrap 
+      transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 
+      focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-50
+    `;
+    if (isActive) {
+      return `${baseClasses} bg-primary text-white shadow-lg shadow-primary/40 scale-105`;
     }
-    return `${baseClasses} bg-white text-gray-700 shadow-sm border border-gray-200 hover:bg-gray-100 hover:shadow-md`;
+    return `${baseClasses} bg-white text-gray-700 shadow-sm border border-gray-200 hover:bg-gray-100 hover:shadow-md hover:-translate-y-0.5`;
   };
 
   return (
@@ -21,17 +27,19 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
         <div className="flex space-x-3 sm:space-x-4 overflow-x-auto pb-2 -mb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
           <button
             onClick={() => onSelectCategory("Todos")}
-            className={getButtonClasses("Todos")}
+            className={getButtonClasses(selectedCategory === "Todos")}
           >
-            Todos
+            <List className="w-4 h-4" />
+            <span>Todos</span>
           </button>
-          {CATEGORIES.map(category => (
+          {CATEGORY_DATA.map(({ name, icon: Icon }) => (
             <button
-              key={category}
-              onClick={() => onSelectCategory(category)}
-              className={getButtonClasses(category)}
+              key={name}
+              onClick={() => onSelectCategory(name)}
+              className={getButtonClasses(selectedCategory === name)}
             >
-              {category}
+              <Icon className="w-4 h-4" />
+              <span>{name}</span>
             </button>
           ))}
         </div>
