@@ -48,7 +48,7 @@ const CouponForm: React.FC<CouponFormProps> = ({ couponToEdit, onFormSubmit }) =
     onFormSubmit();
   };
 
-  const inputClasses = "bg-primary-dark p-2 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-red focus:outline-none placeholder-gray-400 text-accent-cream";
+  const inputClasses = "bg-primary p-2 border border-green-700 rounded-lg w-full focus:bg-primary-dark focus:border-accent-red focus:ring-0 focus:outline-none placeholder-gray-500 text-accent-cream transition-colors duration-200 ease-in-out";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">

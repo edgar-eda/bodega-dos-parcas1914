@@ -23,6 +23,8 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  const inputClasses = "bg-primary appearance-none relative block w-full px-4 py-3 border border-green-700 placeholder-gray-500 text-accent-cream rounded-lg focus:bg-primary-dark focus:border-accent-red focus:ring-0 focus:outline-none sm:text-sm transition-colors duration-200 ease-in-out";
+
   return (
     <div className="min-h-full bg-primary flex items-center justify-center p-4">
       <div className="max-w-4xl w-full mx-auto bg-primary-dark rounded-2xl shadow-2xl overflow-hidden md:grid md:grid-cols-2">
@@ -59,7 +61,7 @@ const LoginPage: React.FC = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="bg-primary-dark appearance-none relative block w-full px-4 py-3 border border-green-700 placeholder-gray-500 text-accent-cream rounded-md focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-accent-red sm:text-sm"
+                className={inputClasses}
                 placeholder="seuemail@exemplo.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -73,7 +75,7 @@ const LoginPage: React.FC = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="bg-primary-dark appearance-none relative block w-full px-4 py-3 border border-green-700 placeholder-gray-500 text-accent-cream rounded-md focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-accent-red sm:text-sm"
+                className={inputClasses}
                 placeholder="Sua senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

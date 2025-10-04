@@ -62,7 +62,7 @@ const RegisterPage: React.FC = () => {
     }
   };
   
-  const inputClasses = "bg-primary-dark p-3 border border-green-700 rounded-md w-full focus:ring-2 focus:ring-accent-red focus:outline-none placeholder-gray-400 text-accent-cream";
+  const inputClasses = "bg-primary p-3 border border-green-700 rounded-lg w-full focus:bg-primary-dark focus:border-accent-red focus:ring-0 focus:outline-none placeholder-gray-500 text-accent-cream transition-colors duration-200 ease-in-out";
 
   return (
     <div className="flex items-center justify-center min-h-full py-12 px-4 sm:px-6 lg:px-8">
