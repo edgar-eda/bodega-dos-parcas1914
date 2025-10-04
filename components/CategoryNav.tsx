@@ -14,7 +14,7 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
 
   const getButtonClasses = (isActive: boolean) => {
     const baseClasses = `
-      flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full whitespace-nowrap 
+      flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full whitespace-nowrap flex-shrink-0
       transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 
       focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-50
     `;
@@ -29,7 +29,6 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
     if (el) {
       const hasOverflow = el.scrollWidth > el.clientWidth;
       setCanScrollLeft(el.scrollLeft > 0);
-      // A small buffer (1px) helps with precision issues in some browsers
       setCanScrollRight(hasOverflow && el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
     }
   };
@@ -37,13 +36,17 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
   useEffect(() => {
     const el = scrollContainerRef.current;
     if (el) {
+      // Initial check
       checkScrollability();
+
+      // Listeners
       el.addEventListener('scroll', checkScrollability, { passive: true });
       window.addEventListener('resize', checkScrollability);
       
       const resizeObserver = new ResizeObserver(checkScrollability);
       resizeObserver.observe(el);
 
+      // Cleanup
       return () => {
         el.removeEventListener('scroll', checkScrollability);
         window.removeEventListener('resize', checkScrollability);
@@ -55,17 +58,19 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
   const scroll = (direction: 'left' | 'right') => {
     const el = scrollContainerRef.current;
     if (el) {
-      const scrollAmount = el.clientWidth * 0.8; // Scroll by 80% of the visible width
+      const scrollAmount = el.clientWidth * 0.8;
       el.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     }
   };
 
-  const ScrollButton = ({ direction, onClick }: { direction: 'left' | 'right', onClick: () => void }) => (
+  const ScrollButton = ({ direction, onClick, disabled }: { direction: 'left' | 'right', onClick: () => void, disabled: boolean }) => (
     <button
       onClick={onClick}
-      className={`absolute ${direction === 'left' ? 'left-0 -ml-2' : 'right-0 -mr-2'} top-1/2 -translate-y-1/2 z-10
+      disabled={disabled}
+      className={`absolute ${direction === 'left' ? 'left-0' : 'right-0'} top-1/2 -translate-y-1/2 z-10
                  bg-white/80 backdrop-blur-sm rounded-full p-1 shadow-md border border-gray-200
                  hover:bg-white transition-all duration-200
+                 disabled:opacity-0 disabled:pointer-events-none
                  sm:hidden`}
       aria-label={`Scroll ${direction}`}
     >
@@ -100,8 +105,8 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
               </button>
             ))}
           </div>
-          {canScrollLeft && <ScrollButton direction="left" onClick={() => scroll('left')} />}
-          {canScrollRight && <ScrollButton direction="right" onClick={() => scroll('right')} />}
+          <ScrollButton direction="left" onClick={() => scroll('left')} disabled={!canScrollLeft} />
+          <ScrollButton direction="right" onClick={() => scroll('right')} disabled={!canScrollRight} />
         </div>
       </div>
     </div>
