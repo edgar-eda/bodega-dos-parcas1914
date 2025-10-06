@@ -38,7 +38,7 @@ const StaticBanner: React.FC<StaticBannerProps> = ({ onSeeOffersClick }) => {
         src="/logo.png" 
         alt="" 
         aria-hidden="true"
-        className="absolute inset-0 w-2/3 h-2/3 md:w-1/2 md:h-1/2 object-contain object-center m-auto opacity-10 z-0"
+        className="absolute inset-0 w-full h-full object-contain object-center m-auto opacity-10 z-0"
       />
 
       {/* Conteúdo do banner fica em um z-index maior */}
