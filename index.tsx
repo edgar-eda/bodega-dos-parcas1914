@@ -6,6 +6,7 @@ import { AuthProvider } from './context/AuthContext';
 import { ProductProvider } from './context/ProductContext';
 import { CartProvider } from './context/CartContext';
 import ScrollToTop from './src/components/ScrollToTop';
+import { CategoryProvider } from './context/CategoryContext';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -18,11 +19,13 @@ root.render(
     <HashRouter>
       <ScrollToTop />
       <AuthProvider>
-        <ProductProvider>
-          <CartProvider>
-            <App />
-          </CartProvider>
-        </ProductProvider>
+        <CategoryProvider>
+          <ProductProvider>
+            <CartProvider>
+              <App />
+            </CartProvider>
+          </ProductProvider>
+        </CategoryProvider>
       </AuthProvider>
     </HashRouter>
   </React.StrictMode>

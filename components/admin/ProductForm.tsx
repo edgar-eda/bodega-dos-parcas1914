@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useProducts } from '../../context/ProductContext';
+import { useCategories } from '../../context/CategoryContext';
 import { Product } from '../../types';
-import { CATEGORIES } from '../../constants';
 import { PlusIcon, TrashIcon } from '../icons';
 
 interface ProductFormProps {
@@ -11,12 +11,13 @@ interface ProductFormProps {
 
 const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }) => {
   const { addProduct, updateProduct } = useProducts();
+  const { categories } = useCategories();
   const [productData, setProductData] = useState({
     name: '',
     description: '',
     price: '',
     promoPrice: '',
-    category: CATEGORIES[0],
+    category: categories.length > 0 ? categories[0].name : '',
     imageUrl: '',
     stock: '0',
   });
@@ -41,13 +42,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
     } else {
       // Reset form for new product
       setProductData({
-        name: '', description: '', price: '', promoPrice: '', category: CATEGORIES[0], imageUrl: '', stock: '0',
+        name: '', description: '', price: '', promoPrice: '', 
+        category: categories.length > 0 ? categories[0].name : '', 
+        imageUrl: '', stock: '0',
       });
       setSpecifications([]);
       setImageFile(null);
       setImagePreview(null);
     }
-  }, [productToEdit]);
+  }, [productToEdit, categories]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -106,7 +109,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ productToEdit, onFormSubmit }
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input type="text" name="name" placeholder="Nome do Produto" value={productData.name} onChange={handleChange} required className={inputClasses} />
         <select name="category" value={productData.category} onChange={handleChange} required className={inputClasses}>
-            {CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+            {categories.map(cat => <option key={cat.id} value={cat.name}>{cat.name}</option>)}
         </select>
       </div>
       <textarea name="description" placeholder="Descrição" value={productData.description} onChange={handleChange} required className={`${inputClasses} h-24`} />

@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { CATEGORY_DATA } from '../constants';
+import { useCategories } from '../context/CategoryContext';
+import { IconComponent } from './IconMap';
 import { List, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface CategoryNavProps {
@@ -8,6 +9,7 @@ interface CategoryNavProps {
 }
 
 const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCategory }) => {
+  const { categories } = useCategories();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -36,24 +38,20 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
   useEffect(() => {
     const el = scrollContainerRef.current;
     if (el) {
-      // Initial check
       checkScrollability();
-
-      // Listeners
       el.addEventListener('scroll', checkScrollability, { passive: true });
       window.addEventListener('resize', checkScrollability);
       
       const resizeObserver = new ResizeObserver(checkScrollability);
       resizeObserver.observe(el);
 
-      // Cleanup
       return () => {
         el.removeEventListener('scroll', checkScrollability);
         window.removeEventListener('resize', checkScrollability);
         resizeObserver.disconnect();
       };
     }
-  }, []);
+  }, [categories]);
 
   const scroll = (direction: 'left' | 'right') => {
     const el = scrollContainerRef.current;
@@ -94,13 +92,13 @@ const CategoryNav: React.FC<CategoryNavProps> = ({ selectedCategory, onSelectCat
               <List className="w-4 h-4" />
               <span>Todos</span>
             </button>
-            {CATEGORY_DATA.map(({ name, icon: Icon }) => (
+            {categories.map(({ id, name, icon_name }) => (
               <button
-                key={name}
+                key={id}
                 onClick={() => onSelectCategory(name)}
                 className={getButtonClasses(selectedCategory === name)}
               >
-                <Icon className="w-4 h-4" />
+                <IconComponent name={icon_name} className="w-4 h-4" />
                 <span>{name}</span>
               </button>
             ))}

@@ -41,3 +41,9 @@ export interface Coupon {
   is_active: boolean;
   expires_at?: string;
 }
+
+export interface Category {
+  id: string;
+  name: string;
+  icon_name: string;
+}

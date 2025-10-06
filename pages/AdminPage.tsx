@@ -3,9 +3,10 @@ import ProductList from '../components/admin/ProductList';
 import Dashboard from '../components/admin/Dashboard';
 import BannerList from '../components/admin/BannerList';
 import CouponList from '../components/admin/CouponList';
-import Customization from '../components/admin/Customization'; // Importando o novo componente
+import Customization from '../components/admin/Customization';
+import CategoryList from '../components/admin/CategoryList';
 
-type AdminTab = 'dashboard' | 'products' | 'banners' | 'coupons' | 'customization';
+type AdminTab = 'dashboard' | 'products' | 'banners' | 'coupons' | 'categories' | 'customization';
 
 const AdminPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
@@ -27,8 +28,10 @@ const AdminPage: React.FC = () => {
         return <BannerList />;
       case 'coupons':
         return <CouponList />;
+      case 'categories':
+        return <CategoryList />;
       case 'customization':
-        return <Customization />; // Renderizando o novo componente
+        return <Customization />;
       default:
         return null;
     }
@@ -63,6 +66,12 @@ const AdminPage: React.FC = () => {
             onClick={() => setActiveTab('coupons')}
           >
             Cupons
+          </button>
+          <button 
+            className={tabButtonClasses('categories')}
+            onClick={() => setActiveTab('categories')}
+          >
+            Categorias
           </button>
           <button 
             className={tabButtonClasses('customization')}
